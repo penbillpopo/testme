@@ -26,7 +26,8 @@ $font_html_mobile:14;
 html {
     font-size: $font_html+px;
     color: $color_grey_01;    
-    font-family: "Roboto";
+	font-family: "Roboto";
+	font-weight: 400;
 }
 @media screen and (max-width: 480px) {
 	html {
@@ -37,19 +38,28 @@ html {
 	@return $px/$font_html+rem;
 }
 
+h4{
+    font-size: pxTorem(30);
+	font-family: inherit;
+	line-height: 1.2;
+}
 h5{
-    font-size: pxTorem(24);
-    font-family: initial;
+    font-size: pxTorem(20);
+	font-family: inherit;
+	line-height: 1.2;
 }
 h6{
     font-size: pxTorem(18);
-    font-family: initial;
+	font-family: inherit;
+	line-height: 1.2;
 }
 p,a,span{
     font-size: pxTorem(16);
-    font-family: initial;
+	font-family: inherit;
+	line-height: 1.2;
 }
 small{
     font-size: pxTorem(14);
-    font-family: initial;
+	font-family: inherit;
+	line-height: 1.2;
 }

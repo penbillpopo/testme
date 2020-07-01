@@ -1,4 +1,10 @@
-@mixin gradient_background($deg,$from_color,$to_color) {
+@mixin background_darken($imgsrc,$color) {
+	background: linear-gradient($color, $color), url($imgsrc);
+	background: -moz-linear-gradient($color 0%, $color 100%),url($imgsrc);
+	background: -webkit-linear-gradient($color 0%, $color 100%),url($imgsrc);
+	background: -o-linear-gradient($color 0%, $color 100%),url($imgsrc);
+}
+@mixin background_gradient($deg,$from_color,$to_color) {
 	background: linear-gradient($deg, $from_color 0%, $to_color 100%);
 	background: -moz-linear-gradient($deg, $from_color 0%, $to_color 100%);
 	background: -webkit-linear-gradient($deg, $from_color 0%, $to_color 100%);

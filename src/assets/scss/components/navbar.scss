@@ -1,0 +1,38 @@
+#navbar{
+    background-color: $color_grey_01;
+    width: 100%;
+    min-height: 50px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left{
+        .logo{
+            .text{
+                color: $color_white_01;
+                font-weight: 600;
+            }
+        }
+    }
+    .right{
+        .mode_loginout{
+            .login{
+                cursor: pointer;
+                padding: 5px 10px;
+                .text{
+                    color: $color_white_01;
+                }
+            }
+            .regist{
+                cursor: pointer;
+                margin-left: 15px;
+                padding: 5px 10px;
+                border-radius: 2px;
+                background-color: $color_grey_02;
+                .text{
+                    color: $color_white_01;
+                }
+            }
+        }
+    }
+}
