@@ -1,0 +1,55 @@
+
+/* ----------FONT-FAMAILY---------- */
+@font-face {
+	font-family: "Roboto";
+	src: url('~@/assets/font/Roboto/Roboto-Medium.ttf');
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Roboto";
+	src: url('~@/assets/font/Roboto/Roboto-Regular.ttf');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Roboto";
+	src: url('~@/assets/font/Roboto/Roboto-Light.ttf');
+	font-weight: 400;
+	font-style: normal;
+}
+
+
+/* ----------FONT-SETTING---------- */
+$font_html:16;
+$font_html_mobile:14;
+html {
+    font-size: $font_html+px;
+    color: $color_grey_01;    
+    font-family: "Roboto";
+}
+@media screen and (max-width: 480px) {
+	html {
+        font-size: $font_html_mobile+px;
+    }
+}
+@function pxTorem($px) {
+	@return $px/$font_html+rem;
+}
+
+h5{
+    font-size: pxTorem(24);
+    font-family: initial;
+}
+h6{
+    font-size: pxTorem(18);
+    font-family: initial;
+}
+p,a,span{
+    font-size: pxTorem(16);
+    font-family: initial;
+}
+small{
+    font-size: pxTorem(14);
+    font-family: initial;
+}

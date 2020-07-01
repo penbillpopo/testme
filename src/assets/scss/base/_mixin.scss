@@ -1,0 +1,64 @@
+@mixin gradient_background($deg,$from_color,$to_color) {
+	background: linear-gradient($deg, $from_color 0%, $to_color 100%);
+	background: -moz-linear-gradient($deg, $from_color 0%, $to_color 100%);
+	background: -webkit-linear-gradient($deg, $from_color 0%, $to_color 100%);
+	background: -o-linear-gradient($deg, $from_color 0%, $to_color 100%);
+}
+@mixin scrollcontainer() {
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		-webkit-appearance: none;
+	}
+	&::-webkit-scrollbar:vertical {
+		width: 5px;
+		background-color: $color-palewhite;
+	}
+	&::-webkit-scrollbar:horizontal {
+		height: 5px;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 5px;
+		background-color: #aaa;
+	}
+}
+@mixin triangle($direction,$length,$color) {
+	//sqrt(3)
+	$height:1.732 * $length;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	line-height: 0px;
+	_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+	@if($direction == 'up') {
+		border-width: 0px $length $height $length;
+		border-color: transparent transparent $color transparent;
+		_border-color: #000000 #000000 $color #000000;
+	}
+	@else if($direction == 'down') {
+		border-width: $height $length 0px $length;
+		border-color: $color transparent transparent transparent;
+		_border-color: $color #000000 #000000 #000000;
+	}
+	@else if($direction == 'left') {
+		border-width: $length $height $length 0px;
+		border-color: transparent $color transparent transparent;
+		_border-color: #000000 $color #000000 #000000;
+	}
+	@else if($direction == 'right') {
+		border-width: $length 0px $length $height;
+		border-color: transparent transparent transparent $color;
+		_border-color: #000000 #000000 #000000 $color;
+	}	
+}
+@mixin boxshadow($offsetX,$offsetY,$expand,$color) {
+	box-shadow: $offsetX $offsetY $expand $color;
+	-webkit-box-shadow: $offsetX $offsetY $expand $color;
+	-moz-box-shadow: $offsetX $offsetY $expand $color;
+}
+@mixin textdot($line) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $line;
+}

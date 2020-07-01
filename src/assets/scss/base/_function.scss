@@ -1,0 +1,3 @@
+@function pxTovw($px) {
+	@return $px * 100 / 1366+vw;
+}
