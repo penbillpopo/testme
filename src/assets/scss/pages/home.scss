@@ -1,59 +1,32 @@
 #home{
-    min-height: 100vh;
+    min-height: calc(100vh - 90px);
+    background-color: $color_grey_02;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .introbox{
-        // @include background_darken('~@/assets/img/home/banner.jpg',#00000080);
-        background-color: $color_grey_02;
+        width: 100%;
         background-size: 100%;
         background-repeat: no-repeat;
-        box-shadow: 0 0 5px $color_grey_01;
         .content{
-            padding: 10% 0;
-            display: flex;
-            justify-content: space-between;
-            .left{
-                .title{
-                    color: $color_white_01;
-                    font-weight: 600;
-                    margin-bottom: 10px;
-                }
+            text-align: center;
+            .title{
+                color: $color_white_01;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+            .text{
+                color: $color_white_01;
+                font-weight: 400;
+            }
+            .loginbtn{
+                background-color: $color_blue_01;
+                cursor: pointer;
+                padding: 10px 20px;
+                margin-top: 20px;
+                border-radius: 5px;
                 .text{
                     color: $color_white_01;
-                    font-weight: 400;
-                }
-                .loginbtn{
-                    background-color: $color_blue_01;
-                    cursor: pointer;
-                    padding: 10px 20px;
-                    margin-top: 20px;
-                    border-radius: 5px;
-                    .text{
-                        color: $color_white_01;
-                    }
-                }
-            }
-            .right{
-
-            }
-        }
-    }
-    .stepbox{
-        .content{
-            display: flex;
-            justify-content: space-around;
-            padding: 7% 0;
-            .step{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                width: 30%;
-                .title{
-                    font-weight: 600;   
-                    color: $color_grey_01;
-                    margin-bottom: 10px;   
-                }
-                .text{
-                    color: $color_grey_01;
                 }
             }
         }
