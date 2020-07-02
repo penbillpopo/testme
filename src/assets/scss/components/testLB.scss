@@ -1,0 +1,110 @@
+.blackfield{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000080;
+    .LBcontent{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        max-width: 600px;
+        width: 90%;
+        background-color: $color_white_01;
+        box-shadow: 0 0 10px $color_grey_03;
+        .headbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 20px;
+            padding-right: 10px;
+            height: 45px;
+            background-color: $color_grey_02;
+            width: 100%;
+            .textfield{
+                display: flex;
+                align-items: flex-end;
+                .title{
+                    color: $color_white_01;
+                    margin-right: 20px;
+                }
+                .count{
+                    color: $color_white_01;
+                }
+
+            }
+            .closebtn{
+                width: 30px;
+                height: 30px;
+                background-color: $color_grey_02;
+                box-shadow: 0 0 5px $color_grey_01;
+                border-radius: 50%;
+                @extend %background;
+                background-size: 40% 40%;
+                background-image: url('~@/assets/img/icon/close_white.svg');
+                cursor: pointer;
+            }
+        }
+        .content{
+            width: 100%;
+            padding: 40px;
+            padding-bottom: 20px;
+            background-color: $color_white_01;
+            .textfield{
+                min-height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .text{
+                    color: $color_grey_01;
+                }
+            }
+            .btnfield{
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                .ansbtnbox{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    .correct,
+                    .wrong{
+                        width: calc(50% - 10px);
+                        padding: 10px 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+                    .correct{
+                        border: 1px solid $color_grey_02;
+                        .text{
+                            color: $color_grey_02;
+                        }
+                    }
+                    .wrong{
+                        background-color: $color_grey_02;
+                        .text{
+                            color: $color_white_01;
+                        }   
+                    }
+                }
+                .checkbtn{
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    box-shadow: 0 0 5px $color_grey_03;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .text{
+
+                    }
+                }
+            }
+        }
+    }
+}
