@@ -4,6 +4,7 @@
         <div id="home">
             <div class="introbox">
                 <div class="content w1200">
+                    <img class="logoimg" src="@/assets/img/icon/pen.svg" alt="">
                     <h4 class="title">
                         Welcome TESTME!
                     </h4>

@@ -1,0 +1,195 @@
+#member{
+    min-height: calc(100vh - 90px);
+    .toolbar{
+        width: 100%;
+        min-height: 50px;
+        background-color: $color_grey_02;
+        padding: 0 30px;
+        display: flex;
+        align-items: center;
+        .item{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 40px;
+            .icon{
+                width: 20px;
+                margin-right: 5px;
+            }
+            .text{
+                color: $color_white_01;
+            }
+        }
+    }
+    .filecontainer{
+        padding: 40px 0;
+        .filebox{
+            margin-bottom: 40px;
+            .headbar{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 10px;
+                border-bottom: 1px solid $color_grey_03;
+                margin-bottom: 20px;
+                .title{
+                    color: $color_grey_01;
+                    font-weight: 600;
+                }
+                .btn{
+                    display: flex;
+                    align-items: center;
+                    padding: 5px;
+                    cursor: pointer;
+                    .icon{
+                        width: 20px;
+                        margin-right: 5px;
+                    }
+                    .text{
+                        color: $color_grey_02;
+                    }
+                }
+            }
+            .fileitembox{
+                display: flex;
+                flex-wrap: wrap;
+                .fileitem{
+                    width: 200px;
+                    padding: 5px;
+                    border: 1px solid $color_grey_04;
+                    border-radius: 5px;
+                    margin-right: 20px;
+                    margin-bottom: 20px;                  
+                    cursor: pointer;
+                    .titlefield{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        .left{
+                            display: flex;
+                            align-items: center;
+                            padding: 5px;
+                            .icon{
+                                width: 20px;
+                                margin-right: 5px;
+                            }
+                            .text{
+                                color: $color_grey_02;
+                            }
+                        }
+                        .right{
+                            .dotbtn{
+                                width: 20px;
+                                height: 20px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;                                
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .editcontainer{
+        padding: 40px 0;
+        .iconbtn{
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 40px;
+            cursor: pointer;
+            .icon{
+                width: 20px;
+                margin-right: 5px;
+            }
+            .text{
+                color: $color_grey_02;
+            }
+        }
+        .textfield{
+            margin-bottom: 40px;
+            .title{
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+            .titleinput{
+                width: 100%;
+                border:0;
+                border-bottom: 1px solid $color_grey_03;
+                background-color: $color_white_01;
+                color: $color_grey_03;
+                padding: 10px;
+                padding-left: 0;
+                font-size: pxTorem(18);
+            }
+            .testbox{
+                margin-bottom: 15px;
+                .testitem{
+                    width: 100%;
+                    box-shadow: 0 0 5px $color_grey_03;
+                    padding: 20px;
+                    .headfield{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-bottom: 10px;
+                        border-bottom: 1px solid $color_grey_04;
+                        margin-bottom: 20px;
+                        .num{
+                            
+                        }
+                        .closebtn{
+
+                        }
+                    }
+                    .inputfield{
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        margin-bottom: 10px;
+                        .inputbox{
+                            width: calc(50% - 10px);
+                            .name{
+                                margin-bottom: 2px;
+                                font-weight: 600;
+                                color: $color_grey_03;
+                            }
+                            .testinput{
+                                width: 100%;
+                                border: 1px solid $color_grey_04;
+                                color: $color_grey_03;
+                                padding: 10px;
+                                padding-left: 0;
+                                font-size: pxTorem(18);
+                                border-radius: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+            .iconbtn{
+                .text{
+                    color: $color_grey_03;
+                    font-weight: 600;
+                }
+            }
+        }
+        .btnfield{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            .confirmbtn{
+                cursor: pointer;
+                padding: 10px 30px;
+                background-color: $color_grey_03;
+                border-radius: 5px;
+                .text{
+                    color: $color_white_01;
+                }
+            }
+        }
+    }
+}

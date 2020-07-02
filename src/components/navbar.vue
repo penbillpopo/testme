@@ -9,11 +9,16 @@
         </div>
         <div class="right">
             <div class="mode_loginout">
-                <button type="button" class="login">
+                <router-link class="login" to="/member">
                     <p class="text">
                         LOGIN
                     </p>
-                </button>
+                </router-link>
+                <!-- <button type="button" class="login">
+                    <p class="text">
+                        LOGIN
+                    </p>
+                </button> -->
                 <button type="button" class="regist">
                     <p class="text">
                         REGIST

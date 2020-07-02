@@ -10,6 +10,10 @@
         background-repeat: no-repeat;
         .content{
             text-align: center;
+            .logoimg{
+                width: 40px;
+                margin-bottom: 20px;
+            }
             .title{
                 color: $color_white_01;
                 font-weight: 600;

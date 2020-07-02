@@ -42,3 +42,25 @@
 		width: 95%;
 	}
 }
+.w900 {
+	max-width: 900px;
+    width: 80%;
+	margin: 0 auto;    
+	@media screen and (max-width: 768px) {
+        width: 90%;
+	}
+	@media screen and (max-width: 480px) {
+		width: 95%;
+	}
+}
+.w800 {
+	max-width: 800px;
+    width: 80%;
+	margin: 0 auto;    
+	@media screen and (max-width: 768px) {
+        width: 90%;
+	}
+	@media screen and (max-width: 480px) {
+		width: 95%;
+	}
+}
