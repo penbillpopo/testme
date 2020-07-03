@@ -9,17 +9,17 @@
         </div>
         <div class="right">
             <div class="mode_loginout">
-                <router-link class="login" to="/member">
+                <!-- <router-link class="login" to="/member">
                     <p class="text">
                         LOGIN
                     </p>
-                </router-link>
-                <!-- <button type="button" class="login">
+                </router-link> -->
+                <button type="button" class="login" @click="OpenLoginLB">
                     <p class="text">
                         LOGIN
                     </p>
-                </button> -->
-                <button type="button" class="regist">
+                </button>
+                <button type="button" class="regist" @click="OpenRegistLB">
                     <p class="text">
                         REGIST
                     </p>
@@ -30,7 +30,15 @@
 </template>
 
 <script>
-export default {    
+export default {  
+    methods:{
+        OpenLoginLB(){
+            this.$store.state.login.isLoginLBOpen = true;
+        },
+        OpenRegistLB(){
+            this.$store.state.regist.isRegistLBOpen = true;
+        }
+    },
 }
 </script>
 

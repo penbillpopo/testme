@@ -6,7 +6,7 @@
                     <h5 class="title">
                         REGIST
                     </h5>
-                    <div class="closebtn"></div>
+                    <div class="closebtn" @click="CloseRegistLB"></div>
                 </div>
                 <div class="content">
                     <div class="inputbox">
@@ -34,7 +34,11 @@
 
 <script>
 export default {
-    
+    methods:{
+        CloseRegistLB(){
+            this.$store.state.regist.isRegistLBOpen = false;
+        }
+    }
 }
 </script>
 

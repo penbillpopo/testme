@@ -70,9 +70,12 @@
                 }
             }
             .forget{
-                text-align: right;
-                color: $color_grey_03;                
+                float: right;
                 cursor: pointer;
+                padding: 0 5px;
+                .text{
+                    color: $color_grey_03;                   
+                }
             }
         }
     }

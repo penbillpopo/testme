@@ -18,9 +18,9 @@
                     </button>
                 </div>
             </div>          
-            <!-- <loginLB></loginLB> -->
-            <!-- <registLB></registLB> -->
-            <!-- <forgotLB></forgotLB> -->
+            <loginLB v-if="IsLoginLB"></loginLB>
+            <registLB v-if="IsRegistLB"></registLB>
+            <forgotLB v-if="IsForgotLB"></forgotLB>
         </div>
         <foot></foot>
     </div>
@@ -29,17 +29,34 @@
 <script>
 import navbar from '@/components/navbar.vue'
 import foot from '@/components/foot.vue'
-// import loginLB from '@/components/loginLB'
-// import registLB from '@/components/registLB'
-// import forgotLB from '@/components/forgotLB'
+import loginLB from '@/components/loginLB'
+import registLB from '@/components/registLB'
+import forgotLB from '@/components/forgotLB'
 export default {
     name: 'Home',
+    data:function(){
+        return {
+           
+        }        
+    },
+    computed:{
+        IsLoginLB(){
+            return this.$store.state.login.isLoginLBOpen;
+        },
+        IsRegistLB(){
+            return this.$store.state.regist.isRegistLBOpen;
+        },
+        IsForgotLB(){
+            return this.$store.state.forgot.isForgotLBOpen;
+        }
+
+    },
     components:{
         navbar,
         foot,
-        // loginLB,
-        // registLB,
-        // forgotLB
+        loginLB,
+        registLB,
+        forgotLB
     }
 }
 </script>

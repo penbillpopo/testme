@@ -6,7 +6,7 @@
                     <h5 class="title">
                         FORGOT
                     </h5>
-                    <div class="closebtn"></div>
+                    <div class="closebtn" @click="CloseForgotLB"></div>
                 </div>
                 <div class="content">                   
                     <div class="inputbox">
@@ -25,7 +25,11 @@
 
 <script>
 export default {
-    
+    methods:{
+        CloseForgotLB(){
+            this.$store.state.forgot.isForgotLBOpen = false;
+        },
+    }
 }
 </script>
 

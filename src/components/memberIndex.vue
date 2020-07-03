@@ -7,10 +7,10 @@
                 <div class="icon_test_white"></div>
                 <p class="text">Add Test</p>
             </router-link>
-            <div class="item">
+            <button type="button" class="item">
                 <div class="icon_folder_white"></div>
                 <p class="text">Add Folder</p>
-            </div>
+            </button>
         </div>
         <div class="filecontainer w1200">
             <div class="filebox">
