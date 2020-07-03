@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="editcontainer w800">
-            <button class="iconbtn" type="button">
-                <img class="icon" src="@/assets/img/icon/filter.svg" alt="">
+            <button class="backbtn" type="button">
+                <div class="icon"></div>
                 <p class="text">back</p>
             </button>
             <div class="textfield">
@@ -15,7 +15,7 @@
                     <div class="testitem">
                         <div class="headfield">
                             <p class="num">1</p>
-                            <button class="closebtn">X</button>
+                            <button class="closebtn"></button>
                         </div>
                         <div class="inputfield">
                             <div class="inputbox">
@@ -29,8 +29,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="iconbtn" type="button">
-                    <img class="icon" src="@/assets/img/icon/filter.svg" alt="">
+                <button class="addbtn" type="button">
+                    <div class="icon"></div>
                     <p class="text">Add Test</p>
                 </button>
             </div>

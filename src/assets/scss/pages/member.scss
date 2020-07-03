@@ -1,5 +1,35 @@
 #member{
     min-height: calc(100vh - 90px);
+    .icon_folder_white,
+    .icon_folder_black,
+    .icon_test_white,
+    .icon_test_black,
+    .icon_filter,
+    .icon_dot{
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        @extend %background_100;
+    }
+    .icon_folder_white{
+        background-image: url('~@/assets/img/icon/folder_white.svg');
+    }
+    .icon_folder_black{
+        background-image: url('~@/assets/img/icon/folder_black.svg');
+    }
+    .icon_test_white{
+        background-image: url('~@/assets/img/icon/test_white.svg');
+    }
+    .icon_test_black{
+        background-image: url('~@/assets/img/icon/test_black.svg');
+    }
+    .icon_filter{
+        background-image: url('~@/assets/img/icon/filter.svg');
+    }
+    .icon_dot{
+        background-image: url('~@/assets/img/icon/dot.svg');
+        margin-right: 0;
+    }
     .toolbar{
         width: 100%;
         min-height: 50px;
@@ -13,7 +43,7 @@
             cursor: pointer;
             margin-right: 40px;
             .icon{
-                width: 20px;
+                height: 20px;
                 margin-right: 5px;
             }
             .text{
@@ -42,7 +72,7 @@
                     padding: 5px;
                     cursor: pointer;
                     .icon{
-                        width: 20px;
+                        height: 20px;
                         margin-right: 5px;
                     }
                     .text{
@@ -71,7 +101,7 @@
                             align-items: center;
                             padding: 5px;
                             .icon{
-                                width: 20px;
+                                height: 20px;
                                 margin-right: 5px;
                             }
                             .text{
@@ -86,6 +116,9 @@
                                 align-items: center;
                                 justify-content: center;                                
                                 cursor: pointer;
+                                .icon{
+                                    height: 20px;
+                                }
                             }
                         }
                     }
@@ -95,18 +128,52 @@
     }
     .editcontainer{
         padding: 40px 0;
-        .iconbtn{
+        .backbtn,
+        .addbtn{
             display: flex;
             align-items: center;
             padding: 5px;
+            padding-left: 0;
             margin-bottom: 40px;
             cursor: pointer;
+            position: relative;
             .icon{
                 width: 20px;
+                height: 20px;
+                background-color: $color_grey_03;
+                border-radius: 50%;
+                transform: rotate(180deg);
+                position: relative;
                 margin-right: 5px;
+                box-shadow: 0 0 5px $color_grey_04;
+                &::before{
+                    content: "";
+                    @extend %background_100;
+                    width: 15px;
+                    height: 15px;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform:translate(-50%,-50%);
+                }
             }
             .text{
                 color: $color_grey_02;
+            }
+        }
+        .backbtn{
+            .icon{
+                background-color: $color_grey_02;
+                &::before{
+                    background-image: url('~@/assets/img/icon/arrow_white.svg');
+                }
+            }
+        }
+        .addbtn{
+            .icon{
+                &::before{
+                    background-image: url('~@/assets/img/icon/cross_white.svg');
+                }
             }
         }
         .textfield{
@@ -142,7 +209,25 @@
                             
                         }
                         .closebtn{
-
+                            width: 20px;
+                            height: 20px;
+                            background-color: $color_grey_03;
+                            border-radius: 50%;
+                            transform: rotate(180deg);
+                            position: relative;
+                            cursor: pointer;
+                            box-shadow: 0 0 5px $color_grey_04;
+                            &::before{
+                                content: "";
+                                @extend %background_100;
+                                background-image: url('~@/assets/img/icon/close_white.svg');
+                                width: 15px;
+                                height: 15px;
+                                position: absolute;
+                                left: 50%;
+                                top: 50%;
+                                transform:translate(-50%,-50%);
+                            }
                         }
                     }
                     .inputfield{
@@ -186,6 +271,7 @@
                 padding: 10px 30px;
                 background-color: $color_grey_03;
                 border-radius: 5px;
+                box-shadow: 0 0 5px $color_grey_04;
                 .text{
                     color: $color_white_01;
                 }

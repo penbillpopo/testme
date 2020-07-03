@@ -2,7 +2,7 @@
     <div>
         <div class="toolbar">
             <router-link class="item" to="/member/testEdit">
-                <img class="icon" src="@/assets/img/icon/pen.svg" alt="">
+                <div class="icon_test_white"></div>
                 <p class="text">Add Test</p>
             </router-link>
         </div>
@@ -11,19 +11,21 @@
                 <div class="headbar">
                     <h6 class="title">Tests</h6>
                     <router-link class="btn" type="button" to="/member">
-                        <img class="icon" src="@/assets/img/icon/filter.svg" alt="">
-                        <p class="text">Back</p>
+                        <div class="icon_filter"></div>
+                        <p class="text">Filter</p>
                     </router-link>
                 </div>
                 <div class="fileitembox">
                     <div class="fileitem" v-for="n in 10" :key="n">
                         <div class="titlefield">
                             <div class="left">
-                                <img class="icon" src="@/assets/img/icon/filter.svg" alt="">
+                                <div class="icon_test_black"></div>
                                 <p class="text">Test_0{{n}}</p>
                             </div>
                             <div class="right">
-                                <button class="dotbtn" type="button">:</button>
+                                <button class="dotbtn" type="button">
+                                    <div class="icon_dot"></div>
+                                </button>
                             </div>
                         </div>
                     </div>

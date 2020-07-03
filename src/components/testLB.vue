@@ -4,9 +4,9 @@
             <div class="LBcontent">
                 <div class="headbar">
                     <div class="textfield">
-                        <h5 class="title">
+                        <h6 class="title">
                             Test_01
-                        </h5>
+                        </h6>
                         <h6 class="count">
                             1/10
                         </h6>

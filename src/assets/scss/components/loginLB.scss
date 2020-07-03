@@ -33,7 +33,7 @@
                 box-shadow: 0 0 5px $color_grey_01;
                 border-radius: 50%;
                 @extend %background;
-                background-size: 40% 40%;
+                background-size: 50% 50%;
                 background-image: url('~@/assets/img/icon/close_white.svg');
                 cursor: pointer;
             }

@@ -3,7 +3,7 @@
         <navbar></navbar>
         <div id="member">
             <router-view></router-view>
-            <!-- <testLB></testLB>         -->
+            <!-- <testLB></testLB> -->
         </div>
         <foot></foot>
     </div>
