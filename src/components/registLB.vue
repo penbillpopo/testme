@@ -10,19 +10,19 @@
                 </div>
                 <div class="content">
                     <div class="inputbox">
-                        <input type="text" name="account" id="account" placeholder="ACCOUNT">
+                        <input type="text" name="account" id="account" v-model="account" placeholder="ACCOUNT">
                     </div>
                     <div class="inputbox">
-                        <input type="text" name="password" id="password" placeholder="PASSWORD">
+                        <input type="text" name="password" id="password" v-model="password" placeholder="PASSWORD">
                     </div>
                     <div class="inputbox">
                         <input type="text" name="c_password" id="c_password" placeholder="CONFIRM PASSWORD">
                     </div>
                     <div class="inputbox">
-                        <input type="text" name="email" id="email" placeholder="EMAIL">
+                        <input type="text" name="email" id="email" v-model="email" placeholder="EMAIL">
                     </div>
                     <div class="inputbox">
-                        <button type="button">
+                        <button type="button" @click="SubmitRegist">
                             <h5 class="text">REGIST</h5>
                         </button>
                     </div>
@@ -34,9 +34,33 @@
 
 <script>
 export default {
+    data(){
+        return {
+            account:"",
+            password:"",
+            email:""
+        }
+    },
     methods:{
         CloseRegistLB(){
             this.$store.state.regist.isRegistLBOpen = false;
+        },
+        SubmitRegist(){
+            this.$http.post('http://localhost/testmedb/api/regist.php',JSON.stringify({
+                "account": this.account,
+                "password": this.password,
+                "email":this.email
+            })).then((response) => {
+                switch(response.data){
+                    case 1:
+                        this.$swal('Success');
+                        this.CloseRegistLB();
+                        break;
+                    case 0:
+                        this.$swal('Failure');
+                        break;
+                }
+            });
         }
     }
 }

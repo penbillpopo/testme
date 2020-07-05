@@ -10,19 +10,28 @@ import membertextedit from '@/components/memberTestEdit.vue'
 Vue.use(VueRouter)
 
 export default new VueRouter({
+    mode:'hash',
     routes:[
         {
             path:"/",
             redirect:"/index"
         },
         {
-            name:"首頁",
+            name:"index",
             path:"/index",
+            //若有session，導入member
+            beforeEnter (to, from, next) {
+                next();
+            },
             component:home
         },
         {
-            name:"會員",
+            name:"member",
             path:"/member",
+            //check session內容並處理
+            beforeEnter (to, from, next) {
+                next();
+            },
             component:member,
             children:[
                 {

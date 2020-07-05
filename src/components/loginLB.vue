@@ -47,12 +47,19 @@ export default {
             this.$store.state.login.isLoginLBOpen = false;
         },
         SubmitLogin(){
-            // this.$http.post('http://localhost/testdb/index.php',JSON.stringify({
-            //     "account": this.account,
-            //     "password": this.password
-            // })).then((response) => {
-            //     alert(response.data);
-            // });
+            this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
+                "account": this.account,
+                "password": this.password
+            })).then((response) => {
+                switch(response.data){
+                    case 1:
+                        this.$swal('Success');
+                        break;
+                    case 0:
+                        this.$swal('Failure');
+                        break;
+                }
+            });
             // this.$http.get('http://localhost/testdb/index.php',{
             //     params: {
             //         'account': 'ppppp'
