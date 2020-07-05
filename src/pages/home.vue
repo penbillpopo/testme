@@ -7,8 +7,6 @@
                     <img class="logoimg" src="@/assets/img/icon/pen.svg" alt="">
                     <h4 class="title">
                         Welcome TESTME!
-
-                        PR test
                     </h4>
                     <p class="text">
                         Do you have problem of memorize something?<br>
