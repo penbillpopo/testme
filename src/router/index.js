@@ -2,10 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from '@/pages/home.vue'
 import member from '@/pages/member.vue'
-import memberindex from '@/components/memberIndex.vue'
-import memberfolder from '@/components/memberFolder.vue'
-import membertextedit from '@/components/memberTestEdit.vue'
-
+import memberindex from '@/components/member/memberIndex.vue'
+import memberfolder from '@/components/member/memberFolder.vue'
+import membertextedit from '@/components/member/memberTestEdit.vue'
 
 Vue.use(VueRouter)
 
@@ -19,18 +18,26 @@ export default new VueRouter({
         {
             name:"index",
             path:"/index",
-            //若有session，導入member
             beforeEnter (to, from, next) {
-                next();
+                if(sessionStorage['islogin']=='1'){
+                    next('/member');
+                }
+                else{
+                    next();
+                }
             },
             component:home
         },
         {
             name:"member",
             path:"/member",
-            //check session內容並處理
             beforeEnter (to, from, next) {
-                next();
+                if(sessionStorage['islogin']=='1'){
+                    next();
+                }
+                else{
+                    next('/index');
+                }
             },
             component:member,
             children:[

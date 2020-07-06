@@ -43,7 +43,7 @@ export default {
     },
     methods:{
         CloseRegistLB(){
-            this.$store.state.regist.isRegistLBOpen = false;
+            this.$store.state.page.login.isRegistLBOpen = false;
         },
         SubmitRegist(){
             this.$http.post('http://localhost/testmedb/api/regist.php',JSON.stringify({

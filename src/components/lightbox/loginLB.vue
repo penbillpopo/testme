@@ -40,26 +40,20 @@ export default {
     },
     methods:{
         CloseLoginLB(){
-            this.$store.state.login.isLoginLBOpen = false;
+            this.$store.state.page.login.isLoginLBOpen = false;
         },
         OpenForgotLB(){
-            this.$store.state.forgot.isForgotLBOpen = true;
-            this.$store.state.login.isLoginLBOpen = false;
+            this.$store.state.page.login.isForgotLBOpen = true;
+            this.$store.state.page.login.isLoginLBOpen = false;
         },
         SubmitLogin(){
-            this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
-                "account": this.account,
-                "password": this.password
-            })).then((response) => {
-                switch(response.data){
-                    case 1:
-                        this.$swal('Success');
-                        break;
-                    case 0:
-                        this.$swal('Failure');
-                        break;
-                }
-            });
+            this.setlogindata(this.account,this.password);
+            let ismember = this.checklogin;
+            if(ismember){
+                this.CloseLoginLB();
+                sessionStorage['islogin'] = '1'; 
+                this.$router.push('/member'); 
+            }
             // this.$http.get('http://localhost/testdb/index.php',{
             //     params: {
             //         'account': 'ppppp'
@@ -67,7 +61,35 @@ export default {
             // }).then((response) => {
             //     alert(response.data);
             // });
+        },
+        //全域func(暫時)
+        setlogindata(_account,_password) {
+            sessionStorage['account'] = _account;
+            sessionStorage['password'] = _password;
+        },
+        checklogin() {
+            let account = sessionStorage['account'];
+            let password = sessionStorage['password']
+            if(account!=null && password!=null){                    
+                this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
+                    "account": account,
+                    "password": password
+                })).then((response) => {
+                    switch(response.data){
+                        case 1:
+                            sessionStorage['islogin'] = '1';
+                            return true;
+                        case 0:
+                            //無效帳密，從session中清除
+                            sessionStorage['islogin'] = '0';
+                            sessionStorage['account'] = null;
+                            sessionStorage['password'] = null;
+                            return false;
+                    }
+                });
+            }
         }
+
     }
 }
 </script>

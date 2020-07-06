@@ -1,18 +1,22 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state:{
-        login:{
-            isLoginLBOpen:false
+        islogin:false,        
+        member:{
+            account:null,
+            password:null
         },
-        regist:{
-            isRegistLBOpen:false
-        },
-        forgot:{
-            isForgotLBOpen:false
+        page:{
+            login:{
+                isLoginLBOpen:false,
+                isRegistLBOpen:false,
+                isForgotLBOpen:false
+            },
         }
-    }
+    },
+    
 });

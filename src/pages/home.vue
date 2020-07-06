@@ -1,6 +1,6 @@
 <template>
     <div>
-        <navbar></navbar>
+        <navbar :ishome='islogin'></navbar>
         <div id="home">
             <div class="introbox">
                 <div class="content w1200">
@@ -27,27 +27,30 @@
 </template>
 
 <script>
-import navbar from '@/components/navbar.vue'
-import foot from '@/components/foot.vue'
-import loginLB from '@/components/loginLB'
-import registLB from '@/components/registLB'
-import forgotLB from '@/components/forgotLB'
+import navbar from '@/components/common/navbar.vue'
+import foot from '@/components/common/foot.vue'
+import loginLB from '@/components/lightbox/loginLB'
+import registLB from '@/components/lightbox/registLB'
+import forgotLB from '@/components/lightbox/forgotLB'
 export default {
     name: 'Home',
     data:function(){
         return {
-           
+            islogin:true
         }        
+    },
+    mounted:function(){
+        
     },
     computed:{
         IsLoginLB(){
-            return this.$store.state.login.isLoginLBOpen;
+            return this.$store.state.page.login.isLoginLBOpen;
         },
         IsRegistLB(){
-            return this.$store.state.regist.isRegistLBOpen;
+            return this.$store.state.page.login.isRegistLBOpen;
         },
         IsForgotLB(){
-            return this.$store.state.forgot.isForgotLBOpen;
+            return this.$store.state.page.login.isForgotLBOpen;
         }
 
     },

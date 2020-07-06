@@ -27,7 +27,7 @@
 export default {
     methods:{
         CloseForgotLB(){
-            this.$store.state.forgot.isForgotLBOpen = false;
+            this.$store.state.page.login.isForgotLBOpen = false;
         },
     }
 }
