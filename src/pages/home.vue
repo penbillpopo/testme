@@ -44,15 +44,14 @@ export default {
     },
     computed:{
         IsLoginLB(){
-            return this.$store.state.page.login.isLoginLBOpen;
+            return this.$store.getters.getLoginLBOpen;
         },
         IsRegistLB(){
-            return this.$store.state.page.login.isRegistLBOpen;
+            return this.$store.getters.getRegistLBOpen;
         },
         IsForgotLB(){
-            return this.$store.state.page.login.isForgotLBOpen;
+            return this.$store.getters.getForgotLBOpen;
         }
-
     },
     components:{
         navbar,

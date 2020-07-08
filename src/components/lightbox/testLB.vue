@@ -44,4 +44,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/assets/scss/components/testLB.scss"></style>
+<style lang="scss" scoped src="@/assets/scss/components/testLB.scss"></style>

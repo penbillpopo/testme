@@ -5,7 +5,8 @@
     .icon_test_white,
     .icon_test_black,
     .icon_filter,
-    .icon_dot{
+    .icon_dot,
+    .icon_trash_white{
         width: 20px;
         height: 20px;
         margin-right: 5px;
@@ -28,6 +29,10 @@
     }
     .icon_dot{
         background-image: url('~@/assets/img/icon/dot.svg');
+        margin-right: 0;
+    }
+    .icon_trash_white{
+        background-image: url('~@/assets/img/icon/trash_white.svg');
         margin-right: 0;
     }
     .toolbar{
@@ -90,14 +95,20 @@
                     border: 1px solid $color_grey_04;
                     border-radius: 5px;
                     margin-right: 20px;
-                    margin-bottom: 20px;                  
-                    cursor: pointer;
+                    margin-bottom: 20px;
+                    user-select: none;
+                    cursor: default;
+                    &.active{
+                        background-color: $color_grey_04;
+                        border: 1px solid $color_grey_03;
+                    }
                     .titlefield{
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         width: 100%;
-                        .left{
+                        margin-bottom: 5px;
+                        .title{
                             display: flex;
                             align-items: center;
                             padding: 5px;
@@ -109,18 +120,14 @@
                                 color: $color_grey_02;
                             }
                         }
-                        .right{
-                            .dotbtn{
-                                width: 20px;
-                                height: 20px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;                                
-                                cursor: pointer;
-                                .icon{
-                                    height: 20px;
-                                }
-                            }
+                    }
+                    .detailfield{
+                        display: flex;
+                        flex-direction: column;                        
+                        .text{
+                            color: $color_grey_02;
+                            margin-bottom: 5px;
+                            margin-left: 10px;
                         }
                     }
                 }
@@ -134,7 +141,7 @@
             display: flex;
             align-items: center;
             padding: 5px;
-            padding-left: 0;
+            padding-left: 1px;
             margin-bottom: 40px;
             cursor: pointer;
             position: relative;

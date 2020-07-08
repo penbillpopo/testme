@@ -18,14 +18,9 @@
                 <div class="fileitembox">
                     <div class="fileitem" v-for="n in 10" :key="n">
                         <div class="titlefield">
-                            <div class="left">
+                            <div class="title">
                                 <div class="icon_test_black"></div>
                                 <p class="text">Test_0{{n}}</p>
-                            </div>
-                            <div class="right">
-                                <button class="dotbtn" type="button">
-                                    <div class="icon_dot"></div>
-                                </button>
                             </div>
                         </div>
                     </div>

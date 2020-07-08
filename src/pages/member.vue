@@ -19,15 +19,7 @@ export default {
         return {
             islogin:false
         }        
-    },
-    mounted:function(){
-        this.$http.post('http://localhost/testmedb/api/member.php',JSON.stringify({
-            "account": sessionStorage['account'],
-            "password": sessionStorage['password']
-        })).then((response) => {
-            console.log(response.data);
-        });
-    },
+    },        
     components:{
         navbar,
         foot,

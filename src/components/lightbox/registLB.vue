@@ -23,7 +23,7 @@
                     </div>
                     <div class="inputbox">
                         <button type="button" @click="SubmitRegist">
-                            <h5 class="text">REGIST</h5>
+                            <h5 class="text">Regist</h5>
                         </button>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ export default {
     },
     methods:{
         CloseRegistLB(){
-            this.$store.state.page.login.isRegistLBOpen = false;
+            this.$store.dispatch('updateRegistLBOpen',false);
         },
         SubmitRegist(){
             this.$http.post('http://localhost/testmedb/api/regist.php',JSON.stringify({
@@ -66,4 +66,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/assets/scss/components/loginLB.scss"></style>
+<style lang="scss" scoped src="@/assets/scss/components/loginLB.scss"></style>

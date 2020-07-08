@@ -14,7 +14,7 @@
                     </div>
                     <div class="inputbox">
                         <button type="button">
-                            <h5 class="text">CONFIRM</h5>
+                            <h5 class="text">Confirm</h5>
                         </button>
                     </div>
                 </div>
@@ -27,10 +27,10 @@
 export default {
     methods:{
         CloseForgotLB(){
-            this.$store.state.page.login.isForgotLBOpen = false;
+            this.$store.dispatch('updateForgotLBOpen',false);
         },
     }
 }
 </script>
 
-<style lang="scss" src="@/assets/scss/components/loginLB.scss"></style>
+<style lang="scss" scoped src="@/assets/scss/components/loginLB.scss"></style>
