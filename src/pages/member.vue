@@ -3,7 +3,6 @@
         <navbar :ishome='islogin'></navbar>
         <div id="member">
             <router-view></router-view>
-            <!-- <testLB></testLB> -->
         </div>
         <foot></foot>
     </div>
@@ -12,7 +11,6 @@
 <script>
 import navbar from '@/components/common/navbar.vue'
 import foot from '@/components/common/foot.vue'
-// import testLB from '@/components/lightbox/testLB.vue'
 export default {
     name: 'member',
     data:function(){
@@ -23,7 +21,6 @@ export default {
     components:{
         navbar,
         foot,
-        // testLB
     }
 }
 </script>

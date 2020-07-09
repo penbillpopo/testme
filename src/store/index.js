@@ -21,6 +21,7 @@ export default new Vuex.Store({
             },
             member:{
                 isAddFolderLBOpen:false,
+                isTestLBOpen:false,
             }
         }
     },
@@ -49,6 +50,9 @@ export default new Vuex.Store({
         updateAddFolderLBOpen(context,payload){
             context.commit('AddFolderLBOpen',payload);
         },
+        updateTestLBOpen(context,payload){
+            context.commit('AddTestLBOpen',payload);
+        },
     },
     getters:{
         getMemberId(state){
@@ -75,6 +79,9 @@ export default new Vuex.Store({
         getAddFolderLBOpen(state){
             return state.page.member.isAddFolderLBOpen;
         },
+        getTestLBOpen(state){
+            return state.page.member.isTestLBOpen;
+        },
     },
     mutations:{
         MemberId(state,payload){
@@ -100,6 +107,9 @@ export default new Vuex.Store({
         },
         AddFolderLBOpen(state,payload){
             state.page.member.isAddFolderLBOpen = payload;
+        },
+        AddTestLBOpen(state,payload){
+            state.page.member.isTestLBOpen = payload;
         },
     },
 

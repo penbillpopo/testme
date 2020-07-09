@@ -53,7 +53,7 @@ export default new VueRouter({
                 },
                 {
                     name:"會員編輯測驗",
-                    path:"testEdit",
+                    path:"testEdit/:folderid/:testid",
                     component:membertextedit,
                 },
             ]

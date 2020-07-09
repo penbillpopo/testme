@@ -54,14 +54,7 @@ export default {
                 _this.$router.push('/member'); 
             },function(){
                 _this.$swal('Failure');
-            });
-            // this.$http.get('http://localhost/testdb/index.php',{
-            //     params: {
-            //         'account': 'ppppp'
-            //     }
-            // }).then((response) => {
-            //     alert(response.data);
-            // });
+            });           
         },
         //全域func(暫時)
         setlogindata(_account,_password) {
