@@ -60,6 +60,20 @@ export default {
     created:function () {
         if(this.$route.params.testid != 0){
             //ajax load data
+            this.testTitle = this.$route.params.testname;
+            this.$http.get('http://localhost/testmedb/api/member/getquestion.php',{
+                params: {
+                    "testid": this.$route.params.testid,
+                }
+            }).then((response) => {
+                this.quesTests = [];
+                response.data.forEach(element => {
+                    this.quesTests.push({
+                        quesText:element.question,
+                        ansText:element.answer
+                    });
+                });                
+            });
         }
     },
     methods:{
@@ -78,7 +92,16 @@ export default {
         ConfirmTextEdit(){
             if(this.$route.params.testid != 0){
                 //編輯
-                console.log();
+                this.$http.post('http://localhost/testmedb/api/member/edittest.php',JSON.stringify({
+                    "testtitle": this.testTitle,
+                    "questests": this.quesTests,
+                    "testid":this.$route.params.testid
+                })).then((response) => {
+                    console.log(response);
+                    if(response.data){
+                        this.$router.go(-1);
+                    }
+                });
             }
             else{
                 //新增
@@ -89,10 +112,9 @@ export default {
                 })).then((response) => {
                     console.log(response);
                     if(response.data){
-                        this.$router.push('/member');
+                        this.$router.go(-1);
                     }
                 });
-
             }
         }
     }

@@ -5,7 +5,7 @@
                 <div class="headbar">
                     <div class="textfield">
                         <h6 class="title">
-                            Test_01
+                            {{testtitle}}
                         </h6>
                         <h6 class="count">
                             {{currentindex+1}}/{{QuestionCounts}}
@@ -21,7 +21,7 @@
                     </div>
                     <div class="btnfield">
                         <div class="ansbtnbox" v-if="isfin">
-                            <button class="correct">
+                            <button class="correct" @click="SaveTest">
                                 <h6 class="text">Save</h6>
                             </button>
                             <button class="wrong" @click="CloseTestLB">
@@ -37,7 +37,6 @@
                             </button>
                         </div>
                         <button class="checkbtn" type="button" v-if="!isanswer&&!isfin" @click="ShowAnswer">
-                            <h6 class="text">></h6>
                         </button>
                     </div>
                 </div>
@@ -51,11 +50,13 @@ export default {
     props: {
         testid:{
             type:String
+        },
+        testtitle:{
+            type:String
         }
     },
     data(){
         return{
-            testtitle:'',
             testdata:[],
             currentindex:0,
             isanswer:false,
@@ -94,6 +95,17 @@ export default {
                 this.currentindex++;
                 this.isanswer = false;
             }
+        },
+        SaveTest(){
+            this.$http.post('http://localhost/testmedb/api/member/setquestion.php',JSON.stringify({
+                "testid": this.$props.testid,
+                "correctrate": this.CorrectRate+'%'
+            })).then((response) => {
+                if(response.data){
+                    this.$emit('updatedata');
+                    this.$swal('Success');
+                }
+            });
         }
     },
     computed:{
@@ -106,7 +118,11 @@ export default {
                     return "Your correct rate is "+this.CorrectRate+'%';
                 }
                 else{
-                    return this.testdata[this.currentindex].question;
+                    if(this.isanswer){
+                        return this.testdata[this.currentindex].answer;
+                    }else{
+                        return this.testdata[this.currentindex].question;
+                    }
                 }
             else
                 return null;

@@ -15,6 +15,10 @@
                 <div class="icon_trash_white"></div>
                 <p class="text">Delete</p>
             </button>
+            <button type="button" class="item" v-if="IsOneTestSelected" @click="EditTest">
+                <div class="icon_edit_white"></div>
+                <p class="text">Edit</p>
+            </button>
         </div>
         <div class="filecontainer w1200" @click="ClearItemActive">
             <div class="filebox">
@@ -26,8 +30,11 @@
                     </button>
                 </div>
                 <div class="fileitembox">
-                    <div class="fileitem" :class="{active:item.active}"
+                    <div class="fileitem" :class="{active:item.active,isdraped:item.isdrapedin}"
                         @click.stop="FolderClick($event,index)"
+                        @dblclick="OpenFolder(index)"
+                        @dragover="FolderDrapedOver($event,index)"
+                        @dragleave="FolderDrapedLeave(index)"
                         v-for="(item,index) in folders" :key="index">
                         <div class="titlefield">
                             <div class="title">
@@ -47,10 +54,13 @@
                     </button>
                 </div>
                 <div class="fileitembox">
-                    <div class="fileitem" :class="{active:item.active}"
+                    <div class="fileitem" draggable="true"
+                        @dragstart="TestDragStart($event,index)" 
+                        @dragend="TestDragEnd()"
+                        :class="{active:item.active,isdraping:item.isdraping}"
                         @click.stop="TestClick($event,index)" 
                         @dblclick="OpenTestLB(index)"
-                        v-for="(item,index) in outtests" :key="index">
+                        v-for="(item,index) in outtests" :key="index">                        
                         <div class="titlefield">
                             <div class="title">
                                 <div class="icon_test_black"></div>
@@ -66,8 +76,8 @@
                 </div>
             </div>
         </div>
-        <addfolderLB v-if="IsAddFolderLB" v-on:updatedata="LoadMemberData"></addfolderLB>
-        <testLB v-if="IsTestLB" :testid="opentestid"></testLB>
+        <addfolderLB v-if="IsAddFolderLB" @updatedata="LoadMemberData"></addfolderLB>
+        <testLB v-if="IsTestLB" :testid="opentestid" :testtitle="opentesttitle" @updatedata="LoadMemberData"></testLB>
     </div>
 </template>
 
@@ -81,7 +91,11 @@ export default {
             folders:[],
             outtests:[],
             outfolderid:'',
-            opentestid:''
+            opentestid:'',
+            opentesttitle:'',
+            openfolderid:'',
+            openfoldertitle:'',
+            drapinfolderid:'',
         }
     },
     created:function(){
@@ -106,6 +120,7 @@ export default {
                         createdate:element.createdate,
                         modifydate:element.modifydate,
                         active:false,
+                        isdrapedin:false,
                     });
                 });
                 this.outtests = [];
@@ -119,6 +134,7 @@ export default {
                         createdate:element.createdate,
                         modifydate:element.modifydate,
                         active:false,
+                        isdraping:false,
                     });
                 });
             });
@@ -196,9 +212,85 @@ export default {
                     }
                 });
         },
+        EditTest(){
+            let testid = '';
+            let testname = '';
+            for (let item of this.outtests) {
+                if(item.active){
+                    testid = item.id;
+                    testname = item.name;
+                }
+            }
+            this.$router.push('/member/testEdit/'+testname+'/'+this.outfolderid+'/'+testid);
+        },
+        MoveToFolder(){
+            this.$swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Move it!'
+                }).then((result) => {
+                    let _this = this;
+                    let movefin = function () {
+                        _this.LoadMemberData();
+                        _this.$swal.fire('Move!','Your file has been Moved.','success');
+                    }
+                    if (result.value) {
+                        let selecteditems = this.GetSelectedItems();
+                        this.$http.post('http://localhost/testmedb/api/member/movetofolder.php',JSON.stringify({
+                            "testsid": selecteditems.tests,
+                            "folderid": this.drapinfolderid,
+                        })).then((response) => {
+                            if(response.data){
+                                movefin();
+                            }
+                        });
+                    }
+                });
+        },
         OpenTestLB(_index){
             this.opentestid = this.outtests[_index].id;
+            this.opentesttitle = this.outtests[_index].name;
             this.$store.dispatch('updateTestLBOpen',true);
+        },
+        OpenFolder(_index){
+            this.openfolderid = this.folders[_index].id;
+            this.openfoldertitle = this.folders[_index].name;
+            this.$router.push('/member/folder/'+this.openfoldertitle+'/'+this.openfolderid);
+        },
+        TestDragStart(e,_index){
+            //沒有多選被點到時要全部取消active
+            if(!this.outtests[_index].active){
+                this.outtests.forEach(element => {
+                    element.active = false;
+                });
+            }
+            //folder要全部取消active
+            this.folders.forEach(element => {
+                element.active = false;
+            });
+            this.outtests[_index].active = true;
+        },
+        TestDragEnd(){
+            if(this.IsTestDrapInFolder)
+                this.MoveToFolder();
+            //全部folder取消isdrapedin，不能寫在FolderDrapedLeave，事件被prevent擋住
+            this.folders.forEach(element => {
+                element.isdrapedin = false;
+            });
+        },
+        FolderDrapedOver(e,_index){
+            //preventDefault可以使cursor恢復成default
+            e.preventDefault();
+            if(!this.folders[_index].isdrapedin){
+                this.folders[_index].isdrapedin = true;
+                this.drapinfolderid = this.folders[_index].id;
+            }
+        },
+        FolderDrapedLeave(_index){
+            this.folders[_index].isdrapedin = false;
         }
     },
     computed:{
@@ -213,6 +305,27 @@ export default {
             }
             return false;
         },
+        IsOneTestSelected(){
+            let testnum = 0;
+            for (let item of this.folders) {
+                if(item.active)
+                    return false;
+            }
+            for (let item of this.outtests) {
+                if(item.active){
+                    testnum++;
+                }
+            }            
+            return testnum==1;
+        },
+        IsTestDrapInFolder(){
+            let flag = 0;
+            this.folders.forEach(element => {
+                if(element.isdrapedin)
+                    flag = 1;
+            });
+            return flag;
+        },
         IsAddFolderLB(){
             return this.$store.getters.getAddFolderLBOpen;
         },
@@ -220,12 +333,12 @@ export default {
             return this.$store.getters.getTestLBOpen;
         },
         Linkaddtest(){
-            return '/member/testEdit/'+this.outfolderid+'/0';
+            return '/member/testEdit/'+'0/'+this.outfolderid+'/0';
         },       
     },
     components:{
         addfolderLB,
-        testLB
+        testLB,
     }
 }
 </script>

@@ -6,7 +6,8 @@
     .icon_test_black,
     .icon_filter,
     .icon_dot,
-    .icon_trash_white{
+    .icon_trash_white,
+    .icon_edit_white{
         width: 20px;
         height: 20px;
         margin-right: 5px;
@@ -27,13 +28,15 @@
     .icon_filter{
         background-image: url('~@/assets/img/icon/filter.svg');
     }
+    .icon_edit_white{
+        background-image: url('~@/assets/img/icon/edit_white.svg');
+    }
     .icon_dot{
         background-image: url('~@/assets/img/icon/dot.svg');
         margin-right: 0;
     }
     .icon_trash_white{
         background-image: url('~@/assets/img/icon/trash_white.svg');
-        margin-right: 0;
     }
     .toolbar{
         width: 100%;
@@ -97,10 +100,15 @@
                     margin-right: 20px;
                     margin-bottom: 20px;
                     user-select: none;
+                    background-color: $color_white_01;
+                    transition: transform 0.3s ease;
                     cursor: default;
                     &.active{
                         background-color: $color_grey_04;
                         border: 1px solid $color_grey_03;
+                    }
+                    &.isdraped{
+                        transform: scale(1.1);
                     }
                     .titlefield{
                         display: flex;
