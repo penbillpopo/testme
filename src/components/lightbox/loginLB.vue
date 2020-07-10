@@ -47,17 +47,9 @@ export default {
         },
         SubmitLogin(){
             this.setlogindata(this.account,this.password);
-<<<<<<< HEAD
-            let ismember = this.checklogin();            
-            console.log(ismember);
-            //非同步，有錯!
-            if(ismember){
-                this.CloseLoginLB();
-=======
             let _this = this;
             this.checklogin(function(){
                 _this.CloseLoginLB();
->>>>>>> 5f9c547e4e179aa0bf41fc9398c8b57d54585815
                 sessionStorage['islogin'] = '1'; 
                 _this.$router.push('/member'); 
             },function(){
@@ -74,7 +66,7 @@ export default {
             let password = sessionStorage['password'];
             
             if(account!=null && password!=null){                    
-                this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
+                this.$http.post(this.$store.state.dbhost+'/testmedb/api/login.php',JSON.stringify({
                     "account": account,
                     "password": password
                 })).then((response) => {

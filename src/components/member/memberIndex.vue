@@ -117,7 +117,7 @@ export default {
     },
     methods:{
         LoadMemberData(){
-            this.$http.post('http://localhost/testmedb/api/member.php',JSON.stringify({
+            this.$http.post(this.$store.state.dbhost+'/testmedb/api/member.php',JSON.stringify({
                 "account": sessionStorage['account'],
                 "password": sessionStorage['password'],
                 "folderorderby":this.folderFilter,
@@ -214,14 +214,14 @@ export default {
                     }
                     if (result.value) {
                         let selecteditems = this.GetSelectedItems();
-                        this.$http.post('http://localhost/testmedb/api/member/deletefolder.php',JSON.stringify({
+                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/deletefolder.php',JSON.stringify({
                             "foldersid": selecteditems.folders,
                         })).then((response) => {
                             if(response.data){
                                 delfin();
                             }
                         });
-                        this.$http.post('http://localhost/testmedb/api/member/deletetest.php',JSON.stringify({
+                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
                             "testsid": selecteditems.tests,
                         })).then((response) => {
                             if(response.data){
@@ -258,7 +258,7 @@ export default {
                     }
                     if (result.value) {
                         let selecteditems = this.GetSelectedItems();
-                        this.$http.post('http://localhost/testmedb/api/member/movetofolder.php',JSON.stringify({
+                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/movetofolder.php',JSON.stringify({
                             "testsid": selecteditems.tests,
                             "folderid": this.drapinfolderid,
                         })).then((response) => {

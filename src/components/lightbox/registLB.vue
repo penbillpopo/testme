@@ -46,7 +46,7 @@ export default {
             this.$store.dispatch('updateRegistLBOpen',false);
         },
         SubmitRegist(){
-            this.$http.post('http://localhost/testmedb/api/regist.php',JSON.stringify({
+            this.$http.post(this.$store.state.dbhost+'/testmedb/api/regist.php',JSON.stringify({
                 "account": this.account,
                 "password": this.password,
                 "email":this.email

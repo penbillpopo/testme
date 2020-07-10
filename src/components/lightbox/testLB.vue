@@ -68,7 +68,7 @@ export default {
         }
     },
     created:function(){
-        this.$http.get('http://localhost/testmedb/api/member/getquestion.php',{
+        this.$http.get(this.$store.state.dbhost+'/testmedb/api/member/getquestion.php',{
             params: {
                 "testid": this.$props.testid,
             }
@@ -107,7 +107,7 @@ export default {
             }
         },
         SaveTest(){
-            this.$http.post('http://localhost/testmedb/api/member/setquestion.php',JSON.stringify({
+            this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/setquestion.php',JSON.stringify({
                 "testid": this.$props.testid,
                 "correctrate": this.CorrectRate+'%'
             })).then((response) => {
