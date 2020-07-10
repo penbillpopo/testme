@@ -48,12 +48,12 @@ export default new VueRouter({
                 },
                 {
                     name:"會員資料夾",
-                    path:"folder",
+                    path:"folder/:foldername/:folderid",
                     component:memberfolder,
                 },
                 {
                     name:"會員編輯測驗",
-                    path:"testEdit",
+                    path:"testEdit/:testname/:folderid/:testid",
                     component:membertextedit,
                 },
             ]

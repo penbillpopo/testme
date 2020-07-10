@@ -20,8 +20,7 @@
                     </button>
                     <div class="inputbox">
                         <button type="button" @click="SubmitLogin">
-                            <!-- <h5 class="text">LOGIN</h5> -->
-                            <router-link to="/member">LOGIN</router-link>
+                            <h5 class="text">Login</h5>
                         </button>                        
                     </div>
                 </div>
@@ -40,36 +39,37 @@ export default {
     },
     methods:{
         CloseLoginLB(){
-            this.$store.state.page.login.isLoginLBOpen = false;
+            this.$store.dispatch('updateLoginLBOpen',false);
         },
         OpenForgotLB(){
-            this.$store.state.page.login.isForgotLBOpen = true;
-            this.$store.state.page.login.isLoginLBOpen = false;
+            this.$store.dispatch('updateForgotLBOpen',true);
+            this.$store.dispatch('updateLoginLBOpen',false);
         },
         SubmitLogin(){
             this.setlogindata(this.account,this.password);
+<<<<<<< HEAD
             let ismember = this.checklogin();            
             console.log(ismember);
             //非同步，有錯!
             if(ismember){
                 this.CloseLoginLB();
+=======
+            let _this = this;
+            this.checklogin(function(){
+                _this.CloseLoginLB();
+>>>>>>> 5f9c547e4e179aa0bf41fc9398c8b57d54585815
                 sessionStorage['islogin'] = '1'; 
-                this.$router.push('/member'); 
-            }
-            // this.$http.get('http://localhost/testdb/index.php',{
-            //     params: {
-            //         'account': 'ppppp'
-            //     }
-            // }).then((response) => {
-            //     alert(response.data);
-            // });
+                _this.$router.push('/member'); 
+            },function(){
+                _this.$swal('Failure');
+            });           
         },
         //全域func(暫時)
         setlogindata(_account,_password) {
             sessionStorage['account'] = _account;
             sessionStorage['password'] = _password;
         },
-        checklogin() {
+        checklogin(_success,_fail) {
             let account = sessionStorage['account'];
             let password = sessionStorage['password'];
             
@@ -81,12 +81,14 @@ export default {
                     switch(response.data){
                         case 1:
                             sessionStorage['islogin'] = '1';
+                            _success();
                             return true;
                         case 0:
                             //無效帳密，從session中清除
                             sessionStorage['islogin'] = '0';
                             sessionStorage['account'] = null;
                             sessionStorage['password'] = null;
+                            _fail();
                             return false;
                     }
                 });
@@ -97,4 +99,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/assets/scss/components/loginLB.scss"></style>
+<style lang="scss" scoped src="@/assets/scss/components/loginLB.scss"></style>

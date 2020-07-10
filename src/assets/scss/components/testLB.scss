@@ -100,8 +100,13 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    .text{
-
+                    cursor: pointer;
+                    &::before{
+                        content: "";
+                        @extend %background_100;
+                        background-image: url('~@/assets/img/icon/arrow_black.svg');
+                        width: 40px;
+                        height: 40px;
                     }
                 }
             }
