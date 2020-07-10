@@ -48,7 +48,9 @@ export default {
         },
         SubmitLogin(){
             this.setlogindata(this.account,this.password);
-            let ismember = this.checklogin;
+            let ismember = this.checklogin();            
+            console.log(ismember);
+            //非同步，有錯!
             if(ismember){
                 this.CloseLoginLB();
                 sessionStorage['islogin'] = '1'; 
@@ -69,7 +71,8 @@ export default {
         },
         checklogin() {
             let account = sessionStorage['account'];
-            let password = sessionStorage['password']
+            let password = sessionStorage['password'];
+            
             if(account!=null && password!=null){                    
                 this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
                     "account": account,
