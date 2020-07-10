@@ -63,9 +63,10 @@ export default {
         },
         checklogin(_success,_fail) {
             let account = sessionStorage['account'];
-            let password = sessionStorage['password']
+            let password = sessionStorage['password'];
+            
             if(account!=null && password!=null){                    
-                this.$http.post('http://localhost/testmedb/api/login.php',JSON.stringify({
+                this.$http.post(this.$store.state.dbhost+'/testmedb/api/login.php',JSON.stringify({
                     "account": account,
                     "password": password
                 })).then((response) => {

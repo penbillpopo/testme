@@ -68,7 +68,7 @@ export default {
     },
     methods:{
         LoadFolderData(){
-            this.$http.get('http://localhost/testmedb/api/member/getfolder.php',{
+            this.$http.get(this.$store.state.dbhost+'/testmedb/api/member/getfolder.php',{
                 params: {
                     "folderid": this.$route.params.folderid,
                 }
@@ -134,7 +134,7 @@ export default {
                     }
                     if (result.value) {
                         let selecteditems = this.GetSelectedItems();                       
-                        this.$http.post('http://localhost/testmedb/api/member/deletetest.php',JSON.stringify({
+                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
                             "testsid": selecteditems.tests,
                         })).then((response) => {
                             if(response.data){
@@ -171,7 +171,7 @@ export default {
                     }
                     if (result.value) {
                         let selecteditems = this.GetSelectedItems();
-                        this.$http.post('http://localhost/testmedb/api/member/movetofolder.php',JSON.stringify({
+                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/movetofolder.php',JSON.stringify({
                             "testsid": selecteditems.tests,
                             "folderid": this.$store.getters.getMemberOutfolderId,
                         })).then((response) => {

@@ -37,7 +37,7 @@ export default {
             this.$store.dispatch('updateAddFolderLBOpen',false);
         },
         ConfirmAddFolder(){
-            this.$http.post('http://localhost/testmedb/api/member/addfolder.php',JSON.stringify({
+            this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/addfolder.php',JSON.stringify({
                 "userid": this.$store.getters.getMemberId,
                 "foldername": this.foldername,
             })).then(() => {

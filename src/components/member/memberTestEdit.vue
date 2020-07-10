@@ -71,7 +71,7 @@ export default {
         if(this.$route.params.testid != 0){
             //ajax load data
             this.testTitle = this.$route.params.testname;
-            this.$http.get('http://localhost/testmedb/api/member/getquestion.php',{
+            this.$http.get(this.$store.state.dbhost+'/testmedb/api/member/getquestion.php',{
                 params: {
                     "testid": this.$route.params.testid,
                 }
@@ -102,7 +102,7 @@ export default {
         ConfirmTextEdit(){
             if(this.$route.params.testid != 0){
                 //編輯
-                this.$http.post('http://localhost/testmedb/api/member/edittest.php',JSON.stringify({
+                this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/edittest.php',JSON.stringify({
                     "testtitle": this.testTitle,
                     "questests": this.quesTests,
                     "testid":this.$route.params.testid,
@@ -115,7 +115,7 @@ export default {
             }
             else{
                 //新增
-                this.$http.post('http://localhost/testmedb/api/member/addtest.php',JSON.stringify({
+                this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/addtest.php',JSON.stringify({
                     "testtitle": this.testTitle,
                     "questests": this.quesTests,
                     "folderid":this.$route.params.folderid,
