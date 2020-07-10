@@ -11,6 +11,7 @@ export default new Vuex.Store({
                 account:null,
                 password:null,
                 email:null,
+                outfolderid:null,
             }
         },
         page:{
@@ -37,6 +38,9 @@ export default new Vuex.Store({
         },
         updateMemberEmail(context,payload){
             context.commit('MemberEmail',payload);
+        },
+        updateMemberOutfolderId(context,payload){
+            context.commit('MemberOutfolderId',payload);
         },
         updateLoginLBOpen(context,payload){
             context.commit('LoginLBOpen',payload);
@@ -67,6 +71,9 @@ export default new Vuex.Store({
         getMemberEmail(state){
             return state.data.member.email;
         },
+        getMemberOutfolderId(state){
+            return state.data.member.outfolderid;
+        },
         getLoginLBOpen(state){
             return state.page.login.isLoginLBOpen;
         },
@@ -96,6 +103,9 @@ export default new Vuex.Store({
         MemberEmail(state,payload){
             state.data.member.email = payload;
         },
+        MemberOutfolderId(state,payload){
+            state.data.member.outfolderid = payload;
+        },
         LoginLBOpen(state,payload){
             state.page.login.isLoginLBOpen = payload;
         },
@@ -111,7 +121,5 @@ export default new Vuex.Store({
         AddTestLBOpen(state,payload){
             state.page.member.isTestLBOpen = payload;
         },
-    },
-
-    
+    },    
 });

@@ -1,13 +1,21 @@
 <template>
     <div>
         <div class="toolbar">
-             <router-link class="item" :to="Linkaddtest()" >
+            <router-link class="item" :to="Linkaddtest()" >
                 <div class="icon_test_white"></div>
                 <p class="text">Add Test</p>
             </router-link>
             <button type="button" class="item" v-if="IsItemSelected" @click="DeleteSelected">
                 <div class="icon_trash_white"></div>
                 <p class="text">Delete</p>
+            </button>
+            <button type="button" class="item" v-if="IsOneTestSelected" @click="EditTest">
+                <div class="icon_edit_white"></div>
+                <p class="text">Edit</p>
+            </button>
+            <button type="button" class="item" v-if="IsItemSelected" @click="MoveToFolder">
+                <div class="icon_move_white"></div>
+                <p class="text">Move</p>
             </button>
         </div>
         <div class="filecontainer w1200" @click="ClearItemActive">
@@ -86,7 +94,7 @@ export default {
             }
         },
         TestClick(e,_index){
-            if(!e.shiftKey){
+            if(!e.shiftKey && !e.ctrlKey){
                 this.ClearItemActive();
             }
             this.tests[_index].active = true;
@@ -97,7 +105,7 @@ export default {
             this.$store.dispatch('updateTestLBOpen',true);
         },
         Linkaddtest(){
-            return '/member/testEdit/'+this.$route.params.folderid+'/0';
+            return '/member/testEdit/'+'0/'+this.$route.params.folderid+'/0';
         },
         GetSelectedItems(){
             let Items = {
@@ -136,6 +144,44 @@ export default {
                     }
                 });
         },
+        EditTest(){
+            let testid = '';
+            let testname = '';
+            for (let item of this.tests) {
+                if(item.active){
+                    testid = item.id;
+                    testname = item.name;
+                }
+            }
+            this.$router.push('/member/testEdit/'+testname+'/'+this.$route.params.folderid+'/'+testid);
+        },
+        MoveToFolder(){
+            this.$swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Move it!'
+                }).then((result) => {
+                    let _this = this;
+                    let movefin = function () {
+                        _this.LoadFolderData();
+                        _this.$swal.fire('Move!','Your file has been Moved.','success');
+                    }
+                    if (result.value) {
+                        let selecteditems = this.GetSelectedItems();
+                        this.$http.post('http://localhost/testmedb/api/member/movetofolder.php',JSON.stringify({
+                            "testsid": selecteditems.tests,
+                            "folderid": this.$store.getters.getMemberOutfolderId,
+                        })).then((response) => {
+                            if(response.data){
+                                movefin();
+                            }
+                        });
+                    }
+                });
+        },
     },
     computed:{
         IsTestLB(){
@@ -147,7 +193,16 @@ export default {
                     return true;
             }
             return false;
-        },     
+        },
+        IsOneTestSelected(){
+            let testnum = 0;
+            for (let item of this.tests) {
+                if(item.active){
+                    testnum++;
+                }
+            }            
+            return testnum==1;
+        }, 
     },
     components:{
         testLB,

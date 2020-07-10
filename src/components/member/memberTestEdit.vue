@@ -10,6 +10,15 @@
                 <input class="titleinput" type="text" name="testTitle" id="testTitle" v-model="testTitle" placeholder="Please input title of the test">
             </div>
             <div class="textfield">
+                <h6 class="title">Mode</h6>
+                <div class="select_mode">
+                    <select v-model="modeSelect">
+                        <option>Sequential Order</option>
+                        <option>Random Order</option>
+                    </select>
+                </div>
+            </div>
+            <div class="textfield">
                 <h6 class="title">Test</h6>
                 <div class="testbox">
                     <div class="testitem" v-for="(item,index) in quesTests" :key="index">
@@ -54,7 +63,8 @@ export default {
                     quesText:'',
                     ansText:''
                 }
-            ]
+            ],
+            modeSelect:'Sequential Order'
         }
     },
     created:function () {
@@ -95,9 +105,9 @@ export default {
                 this.$http.post('http://localhost/testmedb/api/member/edittest.php',JSON.stringify({
                     "testtitle": this.testTitle,
                     "questests": this.quesTests,
-                    "testid":this.$route.params.testid
+                    "testid":this.$route.params.testid,
+                    "mode":this.modeSelect!='Sequential Order',
                 })).then((response) => {
-                    console.log(response);
                     if(response.data){
                         this.$router.go(-1);
                     }
@@ -108,9 +118,9 @@ export default {
                 this.$http.post('http://localhost/testmedb/api/member/addtest.php',JSON.stringify({
                     "testtitle": this.testTitle,
                     "questests": this.quesTests,
-                    "folderid":this.$route.params.folderid
+                    "folderid":this.$route.params.folderid,
+                    "mode":this.modeSelect!='Sequential Order',
                 })).then((response) => {
-                    console.log(response);
                     if(response.data){
                         this.$router.go(-1);
                     }

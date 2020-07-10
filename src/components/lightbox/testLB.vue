@@ -53,11 +53,15 @@ export default {
         },
         testtitle:{
             type:String
+        },
+        testmode:{
+            type:String
         }
     },
     data(){
         return{
             testdata:[],
+            order:[],
             currentindex:0,
             isanswer:false,
             isfin:false,
@@ -69,13 +73,19 @@ export default {
                 "testid": this.$props.testid,
             }
         }).then((response) => {
+            let orderindex = 0;
             response.data.forEach(element => {
                 this.testdata.push({
                     question:element.question,
                     answer:element.answer,
                     iscorrect:false
                 });
+                this.order.push(orderindex);
+                orderindex++;
             });
+            if(this.$props.testmode == 'Random'){
+                this.order = this.shuffle(this.order);
+            }
             
         });
     },
@@ -87,7 +97,7 @@ export default {
             this.isanswer = true;
         },
         Answer(_iscorrect){
-            this.testdata[this.currentindex].iscorrect = _iscorrect;
+            this.testdata[this.order[this.currentindex]].iscorrect = _iscorrect;
             if(this.QuestionCounts == this.currentindex+1){
                 this.isfin = true;
             }
@@ -106,6 +116,16 @@ export default {
                     this.$swal('Success');
                 }
             });
+        },
+        shuffle(arr) {
+            var i,j,temp;
+            for (i = arr.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            return arr;
         }
     },
     computed:{
@@ -119,9 +139,9 @@ export default {
                 }
                 else{
                     if(this.isanswer){
-                        return this.testdata[this.currentindex].answer;
+                        return this.testdata[this.order[this.currentindex]].answer;
                     }else{
-                        return this.testdata[this.currentindex].question;
+                        return this.testdata[this.order[this.currentindex]].question;
                     }
                 }
             else

@@ -4,10 +4,10 @@
     .icon_folder_black,
     .icon_test_white,
     .icon_test_black,
-    .icon_filter,
     .icon_dot,
     .icon_trash_white,
-    .icon_edit_white{
+    .icon_edit_white,
+    .icon_move_white{
         width: 20px;
         height: 20px;
         margin-right: 5px;
@@ -25,11 +25,11 @@
     .icon_test_black{
         background-image: url('~@/assets/img/icon/test_black.svg');
     }
-    .icon_filter{
-        background-image: url('~@/assets/img/icon/filter.svg');
-    }
     .icon_edit_white{
         background-image: url('~@/assets/img/icon/edit_white.svg');
+    }
+    .icon_move_white{
+        background-image: url('~@/assets/img/icon/moveout_white.svg');
     }
     .icon_dot{
         background-image: url('~@/assets/img/icon/dot.svg');
@@ -38,6 +38,59 @@
     .icon_trash_white{
         background-image: url('~@/assets/img/icon/trash_white.svg');
     }
+    .select_filter{
+        display: flex;
+        align-items: center;          
+        button{
+            content: "";
+            display: block;
+            width: 25px;
+            height: 25px;            
+            @extend %background_100;            
+            background-image: url('~@/assets/img/icon/arrow_black.svg');
+            transform: rotate(90deg);
+            cursor: pointer;
+            &.islowtohigh{
+                transform: rotate(-90deg);
+            }  
+        }
+        select{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 0;
+            text-align-last: right;
+            display: flex;
+            align-items: center;
+            padding: 10px 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 90px;
+        }
+    }
+    .select_mode{
+        display: flex;
+        align-items: center;      
+        select{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 1px solid $color_grey_04;
+            border-radius: 5px;
+            text-align-last: left;
+            display: flex;
+            align-items: center;
+            padding: 10px 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 150px;
+            background-size: 20px 20px;
+            background-position: 100% 50%;
+            background-repeat: no-repeat;
+            background-image: url('~@/assets/img/icon/triangle_black.svg');
+        }
+    }
+
     .toolbar{
         width: 100%;
         min-height: 50px;

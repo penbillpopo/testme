@@ -24,10 +24,14 @@
             <div class="filebox">
                 <div class="headbar">
                     <h6 class="title">Folder</h6>
-                    <button class="btn" type="button">
-                        <div class="icon_filter"></div>
-                        <p class="text">Filter</p>
-                    </button>
+                    <div class="select_filter">
+                        <select v-model="folderFilter" @change="LoadMemberData">
+                            <option>Created</option>
+                            <option>Modified</option>
+                        </select>
+                        <button type="button" :class="{islowtohigh:folderAsc}"
+                        @click="[folderAsc=!folderAsc,LoadMemberData($event)]"></button>
+                    </div>
                 </div>
                 <div class="fileitembox">
                     <div class="fileitem" :class="{active:item.active,isdraped:item.isdrapedin}"
@@ -48,10 +52,15 @@
             <div class="filebox">
                 <div class="headbar">
                     <h6 class="title">Tests</h6>
-                    <button class="btn" type="button">
-                        <div class="icon_filter"></div>
-                        <p class="text">Filter</p>
-                    </button>
+                    <div class="select_filter">
+                        <select v-model="testFilter" @change="LoadMemberData">
+                            <option>Created</option>
+                            <option>Modified</option>
+                            <option>Correctrate</option>
+                        </select>
+                        <button type="button" :class="{islowtohigh:testAsc}"
+                        @click="[testAsc=!testAsc, LoadMemberData($event)];"></button>
+                    </div>
                 </div>
                 <div class="fileitembox">
                     <div class="fileitem" draggable="true"
@@ -77,7 +86,7 @@
             </div>
         </div>
         <addfolderLB v-if="IsAddFolderLB" @updatedata="LoadMemberData"></addfolderLB>
-        <testLB v-if="IsTestLB" :testid="opentestid" :testtitle="opentesttitle" @updatedata="LoadMemberData"></testLB>
+        <testLB v-if="IsTestLB" :testid="opentestid" :testtitle="opentesttitle" :testmode="opentestmode" @updatedata="LoadMemberData"></testLB>
     </div>
 </template>
 
@@ -93,9 +102,14 @@ export default {
             outfolderid:'',
             opentestid:'',
             opentesttitle:'',
+            opentestmode:'',
             openfolderid:'',
             openfoldertitle:'',
             drapinfolderid:'',
+            folderFilter:'Created',
+            testFilter:'Created',
+            folderAsc:true,
+            testAsc:true,
         }
     },
     created:function(){
@@ -105,12 +119,17 @@ export default {
         LoadMemberData(){
             this.$http.post('http://localhost/testmedb/api/member.php',JSON.stringify({
                 "account": sessionStorage['account'],
-                "password": sessionStorage['password']
+                "password": sessionStorage['password'],
+                "folderorderby":this.folderFilter,
+                "folderasc":this.folderAsc,
+                "testorderby":this.testFilter,
+                "testasc":this.testAsc
             })).then((response) => {
                 this.$store.dispatch('updateMemberId',response.data.id);
                 this.$store.dispatch('updateMemberAccount',response.data.account);
                 this.$store.dispatch('updateMemberPassword',response.data.password);
                 this.$store.dispatch('updateMemberEmail',response.data.email);
+                this.$store.dispatch('updateMemberOutfolderId',response.data.outfolderid);
                 this.outfolderid = response.data.outfolderid;
                 this.folders = [];
                 response.data.folders.forEach(element => {
@@ -128,7 +147,7 @@ export default {
                     this.outtests.push({
                         id:element.id,
                         name:element.name,
-                        mode:element.mode,
+                        mode:element.mode=='0'?"Sequential":"Random",
                         questions:element.questions,
                         correctrate:element.correctrate,
                         createdate:element.createdate,
@@ -151,13 +170,13 @@ export default {
             }
         },
         TestClick(e,_index){
-            if(!e.shiftKey){
+            if(!e.shiftKey && !e.ctrlKey){
                 this.ClearItemActive();
             }
             this.outtests[_index].active = true;
         },
         FolderClick(e,_index){
-            if(!e.shiftKey){
+            if(!e.shiftKey && !e.ctrlKey){
                 this.ClearItemActive();
             }
             this.folders[_index].active = true;
@@ -253,6 +272,7 @@ export default {
         OpenTestLB(_index){
             this.opentestid = this.outtests[_index].id;
             this.opentesttitle = this.outtests[_index].name;
+            this.opentestmode = this.outtests[_index].mode;
             this.$store.dispatch('updateTestLBOpen',true);
         },
         OpenFolder(_index){
@@ -334,7 +354,7 @@ export default {
         },
         Linkaddtest(){
             return '/member/testEdit/'+'0/'+this.outfolderid+'/0';
-        },       
+        },
     },
     components:{
         addfolderLB,

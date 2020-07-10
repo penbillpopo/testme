@@ -40,8 +40,7 @@ export default {
             this.$http.post('http://localhost/testmedb/api/member/addfolder.php',JSON.stringify({
                 "userid": this.$store.getters.getMemberId,
                 "foldername": this.foldername,
-            })).then((response) => {
-                console.log(response);
+            })).then(() => {
                 this.$emit('updatedata');
                 this.$store.dispatch('updateAddFolderLBOpen',false);
             });
