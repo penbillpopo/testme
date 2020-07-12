@@ -45,6 +45,7 @@
             background-color: $color_white_01;
             .inputbox{
                 width: 100%;
+                margin-bottom: 20px;
                 input[type=text]{
                     width: 100%;
                     border:0;
@@ -52,7 +53,11 @@
                     background-color: $color_white_01;
                     color: $color_grey_03;
                     padding: 10px;
-                    margin-bottom: 20px;
+                }
+                .validatelog{
+                    color: $color_red_01;
+                    padding-top: 5px;
+                    padding-left: 10px;
                 }
                 button{
                     width: 100%;
@@ -73,6 +78,7 @@
                 float: right;
                 cursor: pointer;
                 padding: 0 5px;
+                margin-bottom: 20px;
                 .text{
                     color: $color_grey_03;                   
                 }

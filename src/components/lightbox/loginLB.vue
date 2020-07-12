@@ -11,9 +11,11 @@
                 <div class="content">
                     <div class="inputbox">
                         <input type="text" name="account" id="account" v-model="account" placeholder="ACCOUNT">
+                        <p class="validatelog">{{ validation.firstError('account') }}</p>
                     </div>
                     <div class="inputbox">
                         <input type="text" name="password" id="password" v-model="password" placeholder="PASSWORD">
+                        <p class="validatelog">{{ validation.firstError('password') }}</p>
                     </div>
                     <button class="forget" @click="OpenForgotLB">
                         <p class="text">forget?</p>
@@ -30,6 +32,8 @@
 </template>
 
 <script>
+import SimpleVueValidation from 'simple-vue-validator';
+const Validator = SimpleVueValidation.Validator;
 export default {
     data(){
         return {
@@ -46,15 +50,23 @@ export default {
             this.$store.dispatch('updateLoginLBOpen',false);
         },
         SubmitLogin(){
-            this.setlogindata(this.account,this.password);
             let _this = this;
-            this.checklogin(function(){
-                _this.CloseLoginLB();
-                sessionStorage['islogin'] = '1'; 
-                _this.$router.push('/member'); 
-            },function(){
-                _this.$swal('Failure');
-            });           
+            this.$validate()
+            .then(function(success) {
+                if (success) {
+                    this.setlogindata(this.account,this.password);
+                    this.checklogin(function(){
+                        _this.CloseLoginLB();
+                        sessionStorage['islogin'] = '1'; 
+                        _this.$router.push('/member'); 
+                    },function(){
+                        _this.$swal('Failure');
+                    });                
+                }
+                else{
+                    _this.$swal('Nope');
+                }
+            });
         },
         //全域func(暫時)
         setlogindata(_account,_password) {
@@ -87,7 +99,17 @@ export default {
             }
         }
 
-    }
+    },
+    validators: {
+        account: function (value) {
+            return Validator.value(value).required('Required')
+            .regex('^[A-Za-z_0-9]*$', 'Only contains letters or numbers');
+        },
+        password: function (value) {
+            return Validator.value(value).required('Required')
+            .regex('^[A-Za-z_0-9]*$', 'Only contains letters or numbers');
+        },
+    },
 }
 </script>
 
