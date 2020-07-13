@@ -1,37 +1,36 @@
 <template>
-    <div id="loginLB">
-        <div class="blackfield">
-            <div class="LBcontent">
-                <div class="headbar">
-                    <h5 class="title">
-                        LOGIN
-                    </h5>
-                    <div class="closebtn" @click="CloseLoginLB"></div>
-                </div>
-                <div class="content">
-                    <div class="inputbox">
-                        <input type="text" name="account" id="account" v-model="account" placeholder="ACCOUNT">
-                        <p class="validatelog">{{ validation.firstError('account') }}</p>
-                    </div>
-                    <div class="inputbox">
-                        <input type="text" name="password" id="password" v-model="password" placeholder="PASSWORD">
-                        <p class="validatelog">{{ validation.firstError('password') }}</p>
-                    </div>
-                    <button class="forget" @click="OpenForgotLB">
-                        <p class="text">forget?</p>
-                    </button>
-                    <div class="inputbox">
-                        <button type="button" @click="SubmitLogin">
-                            <h5 class="text">Login</h5>
-                        </button>                        
-                    </div>
-                </div>
+    <LBmodel>
+        <template slot="headbar">
+            <div class="textfield">
+                <h5 class="title">
+                    LOGIN
+                </h5>
+            </div>            
+            <div class="closebtn" @click="CloseLoginLB"></div>
+        </template>
+        <template slot="content">
+            <div class="inputbox">
+                <input type="text" name="account" id="account" v-model="account" placeholder="ACCOUNT">
+                <p class="validatelog">{{ validation.firstError('account') }}</p>
             </div>
-        </div>
-    </div>
+            <div class="inputbox">
+                <input type="text" name="password" id="password" v-model="password" placeholder="PASSWORD">
+                <p class="validatelog">{{ validation.firstError('password') }}</p>
+            </div>
+            <button class="text_right" @click="OpenForgotLB">
+                <p class="text">forgot?</p>
+            </button>
+            <div class="inputbox">
+                <button type="button" @click="SubmitLogin">
+                    <h5 class="text">Login</h5>
+                </button>                        
+            </div>
+        </template>
+    </LBmodel>    
 </template>
 
 <script>
+import LBmodel from '@/components/lightbox/_LBmodel';
 import SimpleVueValidation from 'simple-vue-validator';
 const Validator = SimpleVueValidation.Validator;
 export default {
@@ -40,7 +39,7 @@ export default {
             account:'',
             password:''
         }
-    },
+    },    
     methods:{
         CloseLoginLB(){
             this.$store.dispatch('updateLoginLBOpen',false);
@@ -54,17 +53,17 @@ export default {
             this.$validate()
             .then(function(success) {
                 if (success) {
-                    this.setlogindata(this.account,this.password);
-                    this.checklogin(function(){
+                    _this.setlogindata(_this.account,_this.password);
+                    _this.checklogin(function(){
                         _this.CloseLoginLB();
                         sessionStorage['islogin'] = '1'; 
                         _this.$router.push('/member'); 
                     },function(){
-                        _this.$swal('Failure');
+                        _this.swalAlert('Account incorrect',false);
                     });                
                 }
                 else{
-                    _this.$swal('Nope');
+                    _this.swalAlert('Validation failed',false);
                 }
             });
         },
@@ -110,7 +109,8 @@ export default {
             .regex('^[A-Za-z_0-9]*$', 'Only contains letters or numbers');
         },
     },
+    components:{
+        LBmodel
+    }
 }
 </script>
-
-<style lang="scss" scoped src="@/assets/scss/components/loginLB.scss"></style>

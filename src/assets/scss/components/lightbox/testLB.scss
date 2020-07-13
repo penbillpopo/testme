@@ -1,0 +1,64 @@
+.blackfield{
+    .LBcontent{
+        .content{
+            .textfield{
+                min-height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .text{
+                    color: $color_grey_01;
+                }
+            }
+            .btnfield{
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                .ansbtnbox{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    .correct,
+                    .wrong{
+                        width: calc(50% - 10px);
+                        padding: 10px 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+                    .correct{
+                        border: 1px solid $color_grey_02;
+                        .text{
+                            color: $color_grey_02;
+                        }
+                    }
+                    .wrong{
+                        background-color: $color_grey_02;
+                        .text{
+                            color: $color_white_01;
+                        }   
+                    }
+                }
+                .checkbtn{
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    box-shadow: 0 0 5px $color_grey_03;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    &::before{
+                        content: "";
+                        @extend %background_100;
+                        background-image: url('~@/assets/img/icon/arrow_black.svg');
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+        }
+    }
+}

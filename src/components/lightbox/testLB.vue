@@ -1,51 +1,48 @@
 <template>
-    <div id="testLB">
-        <div class="blackfield">
-            <div class="LBcontent">
-                <div class="headbar">
-                    <div class="textfield">
-                        <h6 class="title">
-                            {{testtitle}}
-                        </h6>
-                        <h6 class="count">
-                            {{currentindex+1}}/{{QuestionCounts}}
-                        </h6>
-                    </div>
-                    <div class="closebtn" @click="CloseTestLB"></div>
-                </div>
-                <div class="content">
-                    <div class="textfield">
-                        <h4 class="text">
-                            {{CurrentQuestionText}}
-                        </h4>
-                    </div>
-                    <div class="btnfield">
-                        <div class="ansbtnbox" v-if="isfin">
-                            <button class="correct" @click="SaveTest">
-                                <h6 class="text">Save</h6>
-                            </button>
-                            <button class="wrong" @click="CloseTestLB">
-                                <h6 class="text">Cancel</h6>
-                            </button>
-                        </div>
-                        <div class="ansbtnbox" v-if="isanswer&&!isfin">
-                            <button class="correct" @click="Answer(true)">
-                                <h6 class="text">Correct</h6>
-                            </button>
-                            <button class="wrong" @click="Answer(false)">
-                                <h6 class="text">Wrong</h6>
-                            </button>
-                        </div>
-                        <button class="checkbtn" type="button" v-if="!isanswer&&!isfin" @click="ShowAnswer">
-                        </button>
-                    </div>
-                </div>
+    <LBmodel>
+        <template slot="headbar">
+            <div class="textfield">
+                <h6 class="title">
+                    {{testtitle}}
+                </h6>
+                <h6 class="text">
+                    {{currentindex+1}}/{{QuestionCounts}}
+                </h6>
             </div>
-        </div>
-    </div>
+            <div class="closebtn" @click="CloseTestLB"></div>
+        </template>
+        <template slot="content">
+           <div class="textfield">
+                <h4 class="text">
+                    {{CurrentQuestionText}}
+                </h4>
+            </div>
+            <div class="btnfield">
+                <div class="ansbtnbox" v-if="isfin">
+                    <button class="correct" @click="SaveTest">
+                        <h6 class="text">Save</h6>
+                    </button>
+                    <button class="wrong" @click="CloseTestLB">
+                        <h6 class="text">Cancel</h6>
+                    </button>
+                </div>
+                <div class="ansbtnbox" v-if="isanswer&&!isfin">
+                    <button class="correct" @click="Answer(true)">
+                        <h6 class="text">Correct</h6>
+                    </button>
+                    <button class="wrong" @click="Answer(false)">
+                        <h6 class="text">Wrong</h6>
+                    </button>
+                </div>
+                <button class="checkbtn" type="button" v-if="!isanswer&&!isfin" @click="ShowAnswer">
+                </button>
+            </div>
+        </template>
+    </LBmodel>    
 </template>
 
 <script>
+import LBmodel from '@/components/lightbox/_LBmodel';
 export default {
     props: {
         testid:{
@@ -113,7 +110,7 @@ export default {
             })).then((response) => {
                 if(response.data){
                     this.$emit('updatedata');
-                    this.$swal('Success');
+                    this.swalAlert('Save success',true);
                 }
             });
         },
@@ -160,8 +157,11 @@ export default {
             else
                 return null;
         }
+    },
+    components:{
+        LBmodel
     }
 }
 </script>
 
-<style lang="scss" scoped src="@/assets/scss/components/testLB.scss"></style>
+<style lang="scss" scoped src="@/assets/scss/components/lightbox/testLB.scss"></style>

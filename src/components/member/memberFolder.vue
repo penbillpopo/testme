@@ -119,30 +119,21 @@ export default {
             return Items;
         },
         DeleteSelected(){
-            this.$swal.fire({
-                title: 'Are you sure?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    let _this = this;
-                    let delfin = function () {
-                        _this.LoadFolderData();
-                        _this.$swal.fire('Deleted!','Your file has been deleted.','success');
-                    }
-                    if (result.value) {
-                        let selecteditems = this.GetSelectedItems();                       
-                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
-                            "testsid": selecteditems.tests,
-                        })).then((response) => {
-                            if(response.data){
-                                delfin();
-                            }
-                        });
+            let _this = this;       
+            this.swalAlertYN('Yes, delete it!',function(){
+                let delfin = function () {
+                    _this.LoadFolderData();
+                    _this.swalAlertText('Deleted!','Your file has been deleted.',true);
+                }
+                let selecteditems = _this.GetSelectedItems();                       
+                _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
+                    "testsid": selecteditems.tests,
+                })).then((response) => {
+                    if(response.data){
+                        delfin();
                     }
                 });
+            });
         },
         EditTest(){
             let testid = '';
@@ -156,31 +147,22 @@ export default {
             this.$router.push('/member/testEdit/'+testname+'/'+this.$route.params.folderid+'/'+testid);
         },
         MoveToFolder(){
-            this.$swal.fire({
-                title: 'Are you sure?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Move it!'
-                }).then((result) => {
-                    let _this = this;
-                    let movefin = function () {
-                        _this.LoadFolderData();
-                        _this.$swal.fire('Move!','Your file has been Moved.','success');
-                    }
-                    if (result.value) {
-                        let selecteditems = this.GetSelectedItems();
-                        this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/movetofolder.php',JSON.stringify({
-                            "testsid": selecteditems.tests,
-                            "folderid": this.$store.getters.getMemberOutfolderId,
-                        })).then((response) => {
-                            if(response.data){
-                                movefin();
-                            }
-                        });
+            let _this = this;       
+            this.swalAlertYN('Yes, Move it!',function(){
+                let movefin = function () {
+                    _this.LoadFolderData();
+                    _this.swalAlertText('Move!','Your file has been Moved.',true);
+                }
+                let selecteditems = _this.GetSelectedItems();
+                _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/movetofolder.php',JSON.stringify({
+                    "testsid": selecteditems.tests,
+                    "folderid": _this.$store.getters.getMemberOutfolderId,
+                })).then((response) => {
+                    if(response.data){
+                        movefin();
                     }
                 });
+            });
         },
     },
     computed:{

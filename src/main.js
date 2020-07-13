@@ -8,14 +8,46 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import SimpleVueValidation from 'simple-vue-validator';
 import App from './App.vue';
 
-Vue.prototype.global = global;
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
-Vue.use(SimpleVueValidation)
+Vue.use(SimpleVueValidation);
 
 new Vue({
   router,
   store,
   render: h => h(App),
 }).$mount('#app')
+
+//全域function
+Vue.mixin({
+  methods: {
+    swalAlert(_title,_isSuccess){
+      this.$swal.fire({
+        icon: _isSuccess?'success':'error',
+        title: _title        
+      })
+    },
+    swalAlertText(_title,_text,_isSuccess){
+      this.$swal.fire({
+        icon: _isSuccess?'success':'error',
+        text:_text,
+        title: _title        
+      })
+    },
+    swalAlertYN(_text,_func){
+      this.$swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: _text
+        }).then((result) => {
+          if(result){
+            _func();
+          }         
+        });  
+    }
+  }
+});

@@ -1,31 +1,28 @@
 <template>
-    <div id="addfolderLB">
-        <div class="blackfield">
-            <div class="LBcontent">
-                <div class="headbar">
-                    <div class="textfield">
-                        <h6 class="title">
-                            Add Folder
-                        </h6>
-                    </div>
-                    <div class="closebtn" @click="CloseAddFolderLB"></div>
-                </div>
-                <div class="content">
-                   <div class="inputbox">
-                        <input type="text" name="account" id="foldername" v-model="foldername" placeholder="Folder Name">
-                    </div>
-                    <div class="inputbox">
-                        <button type="button" @click="ConfirmAddFolder">
-                            <h5 class="text">Confirm</h5>
-                        </button>                        
-                    </div>
-                </div>
+    <LBmodel>
+        <template slot="headbar">
+            <div class="textfield">
+                <h5 class="title">
+                    Add Folder
+                </h5>
             </div>
-        </div>
-    </div>
+            <div class="closebtn" @click="CloseAddFolderLB"></div>
+        </template>
+        <template slot="content">
+           <div class="inputbox">
+                <input type="text" name="account" id="foldername" v-model="foldername" placeholder="Folder Name">
+            </div>
+            <div class="inputbox">
+                <button type="button" @click="ConfirmAddFolder">
+                    <h5 class="text">Confirm</h5>
+                </button>                        
+            </div>
+        </template>
+    </LBmodel>    
 </template>
 
 <script>
+import LBmodel from '@/components/lightbox/_LBmodel';
 export default {
     data(){
         return{
@@ -45,8 +42,9 @@ export default {
                 this.$store.dispatch('updateAddFolderLBOpen',false);
             });
         }
+    },
+    components:{
+        LBmodel
     }
 }
 </script>
-
-<style lang="scss" scoped src="@/assets/scss/components/addfolderLB.scss"></style>
