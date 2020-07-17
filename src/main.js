@@ -37,9 +37,9 @@ Vue.mixin({
         cancelButtonColor: '#d33',
         confirmButtonText: _text
         }).then((result) => {
-          if(result){
+          if(result.value){
             _func();
-          }         
+          }     
         });  
     }
   }

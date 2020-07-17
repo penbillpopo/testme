@@ -36,9 +36,9 @@ export default {
     name: 'Home',
     data:function(){
         return {
-            islogin:true
+            islogin:true,
         }        
-    },   
+    },
     computed:{
         IsLoginLB(){
             return this.$store.getters.getLoginLBOpen;

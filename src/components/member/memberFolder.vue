@@ -2,19 +2,23 @@
     <div>
         <div class="toolbar">
             <router-link class="item" :to="Linkaddtest()" >
-                <div class="icon_test_white"></div>
+                <div class="icon icon_test_white"></div>
                 <p class="text">Add Test</p>
             </router-link>
+            <button type="button" class="item" @click="historyback">
+                <div class="icon icon_moveout_white"></div>
+                <p class="text">Exit</p>
+            </button>
             <button type="button" class="item" v-if="IsItemSelected" @click="DeleteSelected">
-                <div class="icon_trash_white"></div>
+                <div class="icon icon_trash_white"></div>
                 <p class="text">Delete</p>
             </button>
             <button type="button" class="item" v-if="IsOneTestSelected" @click="EditTest">
-                <div class="icon_edit_white"></div>
+                <div class="icon icon_edit_white"></div>
                 <p class="text">Edit</p>
             </button>
             <button type="button" class="item" v-if="IsItemSelected" @click="MoveToFolder">
-                <div class="icon_move_white"></div>
+                <div class="icon icon_folderout_white"></div>
                 <p class="text">Move</p>
             </button>
         </div>
@@ -22,10 +26,15 @@
             <div class="filebox">
                 <div class="headbar">
                     <h6 class="title">{{foldername}}</h6>
-                    <button class="btn" type="button">
-                        <div class="icon_filter"></div>
-                        <p class="text">Filter</p>
-                    </button>
+                    <div class="select_filter">
+                        <select v-model="testFilter" @change="LoadFolderData">
+                            <option>Created</option>
+                            <option>Modified</option>
+                            <option>Correctrate</option>
+                        </select>
+                        <button type="button" :class="{islowtohigh:testAsc}"
+                        @click="[testAsc=!testAsc, LoadFolderData($event)];"></button>
+                    </div>
                 </div>
                 <div class="fileitembox">
                     <div class="fileitem" v-for="(item,index) in tests" :key="index"
@@ -34,7 +43,7 @@
                         @dblclick="OpenTestLB(index)">
                         <div class="titlefield">
                             <div class="title">
-                                <div class="icon_test_black"></div>
+                                <div class="icon icon_test_black"></div>
                                 <p class="text">{{item.name}}</p>
                             </div>
                         </div>
@@ -61,18 +70,21 @@ export default {
             foldername:this.$route.params.foldername,
             opentestid:'',
             opentesttitle:'',
+            testFilter:'Created',
+            testAsc:true,
         }
     },
-    created:function(){
+    mounted(){
         this.LoadFolderData();
     },
     methods:{
         LoadFolderData(){
-            this.$http.get(this.$store.state.dbhost+'/testmedb/api/member/getfolder.php',{
-                params: {
-                    "folderid": this.$route.params.folderid,
-                }
-            }).then((response) => {               
+            this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/getfolder.php',JSON.stringify({
+                "folderid": this.$route.params.folderid,
+                "testorderby":this.testFilter,
+                "testasc":this.testAsc
+            })).then((response) => {    
+                console.log(response.data);           
                 this.tests = [];
                 response.data.forEach(element => {
                     this.tests.push({
@@ -163,6 +175,9 @@ export default {
                     }
                 });
             });
+        },
+        historyback() {            
+            this.$router.go(-1);    
         },
     },
     computed:{

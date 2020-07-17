@@ -9,6 +9,7 @@
                 margin-bottom: 10px;
                 .text{
                     color: $color_grey_01;
+                    text-align: center;
                 }
                 .img{
                     width: 100%;
@@ -62,6 +63,16 @@
                         background-image: url('~@/assets/img/icon/arrow_black.svg');
                         width: 40px;
                         height: 40px;
+                    }
+                }
+            }
+            @media screen and (max-width: 480px) {
+                .btnfield{
+                    .ansbtnbox{
+                        .correct,
+                        .wrong{
+                            width: calc(50% - 5px);
+                        }
                     }
                 }
             }

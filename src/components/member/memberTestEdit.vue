@@ -2,7 +2,7 @@
     <div>
         <div class="editcontainer w800">
             <button class="backbtn" type="button" @click="historyback">
-                <div class="icon"></div>
+                <div class="btnicon"></div>
                 <p class="text">back</p>
             </button>
             <div class="textfield">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <button class="addbtn" type="button" @click="AddTest">
-                    <div class="icon"></div>
+                    <div class="btnicon"></div>
                     <p class="text">Add Test</p>
                 </button>
             </div>

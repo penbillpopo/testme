@@ -88,5 +88,29 @@
                 }
             }
         }
+        @media screen and (max-width: 768px) {
+            .content{
+                padding: 30px;
+                padding-bottom: 10px;               
+                .inputbox{
+                    margin-bottom: 15px;
+                    button{                   
+                        margin-top: 10px;
+                    }              
+                }
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .content{
+                padding: 15px;
+                padding-bottom: 0px;               
+                .inputbox{
+                    margin-bottom: 10px;
+                    button{                   
+                        margin-top: 0px;
+                    }              
+                }
+            }
+        }
     }
 }

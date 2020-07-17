@@ -14,7 +14,21 @@
 </template>
 
 <script>
-export default {   
+export default {
+    created(){
+        this.LBOpen();
+    },
+    destroyed(){
+        this.LBClose();
+    },
+    methods:{
+        LBOpen(){
+            document.body.classList.add("LBOpen");
+        },
+        LBClose(){
+            document.body.classList.remove("LBOpen");
+        }
+    }
 }
 </script>
 

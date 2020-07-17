@@ -2,22 +2,30 @@
 
 <template>
     <div>
-        <div class="toolbar">
+        <div class="toolbar" :class="{isFixed:ifFixed}">
             <router-link class="item" :to="Linkaddtest" >
-                <div class="icon_test_white"></div>
+                <div class="icon icon_test_white"></div>
                 <p class="text">Add Test</p>
             </router-link>
             <button type="button" class="item" @click="OpenAddFolderLB">
-                <div class="icon_folder_white"></div>
+                <div class="icon icon_folder_white"></div>
                 <p class="text">Add Folder</p>
             </button>
             <button type="button" class="item" v-if="IsItemSelected" @click="DeleteSelected">
-                <div class="icon_trash_white"></div>
+                <div class="icon icon_trash_white"></div>
                 <p class="text">Delete</p>
             </button>
+            <button type="button" class="item" v-if="IsOneFolderSelected" @click="OpenFolder">
+                <div class="icon icon_movein_white"></div>
+                <p class="text">Enter</p>
+            </button>
             <button type="button" class="item" v-if="IsOneTestSelected" @click="EditTest">
-                <div class="icon_edit_white"></div>
+                <div class="icon icon_edit_white"></div>
                 <p class="text">Edit</p>
+            </button>
+            <button type="button" class="item" v-if="IsOneTestSelected" @click="OpenTestLB">
+                <div class="icon icon_play_white"></div>
+                <p class="text">Play</p>
             </button>
         </div>
         <div class="filecontainer w1200" @click="ClearItemActive">
@@ -36,13 +44,13 @@
                 <div class="fileitembox">
                     <div class="fileitem" :class="{active:item.active,isdraped:item.isdrapedin}"
                         @click.stop="FolderClick($event,index)"
-                        @dblclick="OpenFolder(index)"
+                        @dblclick="OpenFolder()"
                         @dragover="FolderDrapedOver($event,index)"
                         @dragleave="FolderDrapedLeave(index)"
                         v-for="(item,index) in folders" :key="index">
                         <div class="titlefield">
                             <div class="title">
-                                <div class="icon_folder_black"></div>
+                                <div class="icon icon_folder_black"></div>
                                 <p class="text">{{item.name}}</p>
                             </div>
                         </div>
@@ -68,11 +76,11 @@
                         @dragend="TestDragEnd()"
                         :class="{active:item.active,isdraping:item.isdraping}"
                         @click.stop="TestClick($event,index)" 
-                        @dblclick="OpenTestLB(index)"
+                        @dblclick="OpenTestLB()"
                         v-for="(item,index) in outtests" :key="index">                        
                         <div class="titlefield">
                             <div class="title">
-                                <div class="icon_test_black"></div>
+                                <div class="icon icon_test_black"></div>
                                 <p class="text">{{item.name}}</p>
                             </div>
                         </div>
@@ -110,12 +118,20 @@ export default {
             testFilter:'Created',
             folderAsc:true,
             testAsc:true,
+            scrollDistence: window.scrollY,
+            ifFixed: false,
         }
     },
-    created:function(){
+    created: function(){
+        window.addEventListener('scroll', this.listenScrollDistence, true);
+    },
+    mounted(){
         this.LoadMemberData();
     },
     methods:{
+        listenScrollDistence: function(){ 
+            this.scrollDistence = window.scrollY;
+        },
         LoadMemberData(){
             this.$http.post(this.$store.state.dbhost+'/testmedb/api/member.php',JSON.stringify({
                 "account": localStorage['account'],
@@ -240,15 +256,33 @@ export default {
                 });
             });
         },
-        OpenTestLB(_index){
-            this.opentestid = this.outtests[_index].id;
-            this.opentesttitle = this.outtests[_index].name;
-            this.opentestmode = this.outtests[_index].mode;
+        OpenTestLB(){
+            let testid = '';
+            let testname = '';
+            let testmode = '';
+            for (let item of this.outtests) {
+                if(item.active){
+                    testid = item.id;
+                    testname = item.name;
+                    testmode = item.mode;
+                }
+            }
+            this.opentestid = testid;
+            this.opentesttitle = testname;
+            this.opentestmode = testmode;
             this.$store.dispatch('updateTestLBOpen',true);
         },
-        OpenFolder(_index){
-            this.openfolderid = this.folders[_index].id;
-            this.openfoldertitle = this.folders[_index].name;
+        OpenFolder(){
+            let folderid = '';
+            let foldername = '';
+            for (let item of this.folders) {
+                if(item.active){
+                    folderid = item.id;
+                    foldername = item.name;
+                }
+            }
+            this.openfolderid = folderid;
+            this.openfoldertitle = foldername;
             this.$router.push('/member/folder/'+this.openfoldertitle+'/'+this.openfolderid);
         },
         TestDragStart(e,_index){
@@ -284,6 +318,14 @@ export default {
             this.folders[_index].isdrapedin = false;
         }
     },
+    watch: {
+        scrollDistence: function(){
+            if(this.scrollDistence >= 50)
+                this.ifFixed = true;
+            else
+                this.ifFixed = false;
+        }
+    },
     computed:{
         IsItemSelected(){
             for (let item of this.folders) {
@@ -308,6 +350,20 @@ export default {
                 }
             }            
             return testnum==1;
+        },
+        IsOneFolderSelected(){
+            let foldernum = 0;
+            for (let item of this.outtests) {
+                if(item.active){
+                    return false;
+                }
+            }
+            for (let item of this.folders) {
+                if(item.active){
+                    foldernum++;                    
+                }
+            }
+            return foldernum==1;
         },
         IsTestDrapInFolder(){
             let flag = 0;
