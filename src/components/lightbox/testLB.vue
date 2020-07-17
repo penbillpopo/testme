@@ -13,9 +13,10 @@
         </template>
         <template slot="content">
            <div class="textfield">
-                <h4 class="text">
-                    {{CurrentQuestionText}}
+                <h4 class="text" v-if="isboardText">
+                    {{boardText}}
                 </h4>
+                <div class="img" v-if="!isboardText" :style="{'background-image':'url('+boardImg+')'}"></div>
             </div>
             <div class="btnfield">
                 <div class="ansbtnbox" v-if="isfin">
@@ -62,6 +63,9 @@ export default {
             currentindex:0,
             isanswer:false,
             isfin:false,
+            isboardText:true,
+            boardText:'',
+            boardImg:'',
         }
     },
     created:function(){
@@ -73,8 +77,12 @@ export default {
             let orderindex = 0;
             response.data.forEach(element => {
                 this.testdata.push({
-                    question:element.question,
-                    answer:element.answer,
+                    quesType:element.quesType,
+                    quesText:element.quesText,
+                    ansText:element.ansText,
+                    ansType:element.ansType,
+                    quesImg:element.quesImg,
+                    ansImg:element.ansImg,
                     iscorrect:false
                 });
                 this.order.push(orderindex);
@@ -83,7 +91,7 @@ export default {
             if(this.$props.testmode == 'Random'){
                 this.order = this.shuffle(this.order);
             }
-            
+            this.UpdateTest();
         });
     },
     methods:{
@@ -92,6 +100,7 @@ export default {
         },
         ShowAnswer(){
             this.isanswer = true;
+            this.UpdateTest();
         },
         Answer(_iscorrect){
             this.testdata[this.order[this.currentindex]].iscorrect = _iscorrect;
@@ -102,6 +111,41 @@ export default {
                 this.currentindex++;
                 this.isanswer = false;
             }
+            this.UpdateTest();
+        },
+        UpdateTest(){
+            if(this.QuestionCounts)
+                if(this.isfin){
+                    this.isboardText = true;
+                    this.boardText = "Your correct rate is "+this.CorrectRate+'%';
+                }
+                else{
+                    if(this.isanswer){
+                        switch(this.testdata[this.order[this.currentindex]].ansType){
+                            case "text":
+                                this.isboardText = true;
+                                this.boardText = this.testdata[this.order[this.currentindex]].ansText;
+                                break;
+                            case "img":
+                                this.isboardText = false;
+                                this.boardImg = this.testdata[this.order[this.currentindex]].ansImg;
+                                break;
+                        }
+                    }else{
+                        switch(this.testdata[this.order[this.currentindex]].quesType){
+                            case "text":
+                                this.isboardText = true;
+                                this.boardText = this.testdata[this.order[this.currentindex]].quesText;
+                                break;
+                            case "img":
+                                this.isboardText = false;
+                                this.boardImg =  this.testdata[this.order[this.currentindex]].quesImg;
+                                break;
+                        }
+                    }
+                }
+            else
+                return null;
         },
         SaveTest(){
             this.$http.post(this.$store.state.dbhost+'/testmedb/api/member/setquestion.php',JSON.stringify({
@@ -128,21 +172,6 @@ export default {
     computed:{
         QuestionCounts() {
             return this.testdata.length;
-        },
-        CurrentQuestionText() {
-            if(this.QuestionCounts)
-                if(this.isfin){
-                    return "Your correct rate is "+this.CorrectRate+'%';
-                }
-                else{
-                    if(this.isanswer){
-                        return this.testdata[this.order[this.currentindex]].answer;
-                    }else{
-                        return this.testdata[this.order[this.currentindex]].question;
-                    }
-                }
-            else
-                return null;
         },
         CorrectRate(){
             let correct = 0;

@@ -2,9 +2,9 @@
     <LBmodel>
         <template slot="headbar">
             <div class="textfield">
-                <h5 class="title">
+                <h6 class="title">
                     REGIST
-                </h5>
+                </h6>
             </div>
             <div class="closebtn" @click="CloseRegistLB"></div>
         </template>
@@ -68,7 +68,7 @@ export default {
                                 _this.CloseRegistLB();
                                 break;
                             case 0:
-                                _this.swalAlert('Register failure',false);
+                                _this.swalAlert('Account already exists',false);
                                 break;
                         }
                     });

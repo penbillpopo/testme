@@ -64,3 +64,66 @@
 		width: 95%;
 	}
 }
+
+//input
+/* inputbox */
+.inputbox {
+	.radiolabel{
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		position: relative;
+		display: flex;
+		align-items: center;
+		padding-left: 20px;
+		cursor: pointer;
+		.text{
+			color: $color_grey_03;
+		}
+		input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			width: 0;
+			height: 0;
+			&:checked ~ .checkmark {
+				background-color: #2196F3;
+			}
+			&:checked ~ .checkmark:after {
+				display: block;
+		  	}
+		}
+		.checkmark {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			height: 15px;
+			width: 15px;
+			background-color: #eee;
+			border-radius: 50%;
+		  	&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: white;
+			}
+		}	
+	}
+}
+  
+
+
+//extention
+//simple validate
+.validatelog{
+	color: $color_red_01;
+	padding-top: 5px;
+	padding-left: 10px;
+}

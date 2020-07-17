@@ -17,7 +17,7 @@ export default {
         return {
             islogin:false
         }        
-    },        
+    },
     components:{
         navbar,
         foot,

@@ -118,8 +118,8 @@ export default {
     methods:{
         LoadMemberData(){
             this.$http.post(this.$store.state.dbhost+'/testmedb/api/member.php',JSON.stringify({
-                "account": sessionStorage['account'],
-                "password": sessionStorage['password'],
+                "account": localStorage['account'],
+                "password": localStorage['password'],
                 "folderorderby":this.folderFilter,
                 "folderasc":this.folderAsc,
                 "testorderby":this.testFilter,
@@ -201,25 +201,17 @@ export default {
         DeleteSelected(){
             let _this = this;       
             this.swalAlertYN('Yes, delete it!',function(){
-                let delfin = function () {
-                    _this.LoadMemberData();
-                    _this.swalAlertText('Deleted!','Your file has been deleted.',true);                        
-                }
                 let selecteditems = _this.GetSelectedItems();
-                _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/deletefolder.php',JSON.stringify({
+                let d_folder =  _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/deletefolder.php',JSON.stringify({
                     "foldersid": selecteditems.folders,
-                })).then((response) => {
-                    if(response.data){
-                        delfin();
-                    }
-                });
-                _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
+                }));
+                let d_test = _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/deletetest.php',JSON.stringify({
                     "testsid": selecteditems.tests,
-                })).then((response) => {
-                    if(response.data){
-                        delfin();
-                    }
-                });
+                }));
+                Promise.all([d_folder, d_test]).then(function () {
+                    _this.LoadMemberData();
+                    _this.swalAlertText('Deleted!','Your file has been deleted.',true); 
+                });               
             });
         },
         EditTest(){
@@ -236,17 +228,14 @@ export default {
         MoveToFolder(){
             let _this = this;       
             this.swalAlertYN('Yes, Move it!',function(){
-                let movefin = function () {
-                    _this.LoadMemberData();
-                    _this.swalAlertText('Move!','Your file has been Moved.',true);                
-                }
                 let selecteditems = _this.GetSelectedItems();
                 _this.$http.post(_this.$store.state.dbhost+'/testmedb/api/member/movetofolder.php',JSON.stringify({
                     "testsid": selecteditems.tests,
                     "folderid": _this.drapinfolderid,
                 })).then((response) => {
                     if(response.data){
-                        movefin();
+                        _this.LoadMemberData();
+                        _this.swalAlertText('Move!','Your file has been Moved.',true);
                     }
                 });
             });

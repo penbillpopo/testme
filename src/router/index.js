@@ -19,7 +19,7 @@ export default new VueRouter({
             name:"index",
             path:"/index",
             beforeEnter (to, from, next) {
-                if(sessionStorage['islogin']=='1'){
+                if(localStorage['islogin']=='1'){
                     next('/member');
                 }
                 else{
@@ -32,7 +32,7 @@ export default new VueRouter({
             name:"member",
             path:"/member",
             beforeEnter (to, from, next) {
-                if(sessionStorage['islogin']=='1'){
+                if(localStorage['islogin']=='1'){
                     next();
                 }
                 else{

@@ -48,10 +48,20 @@ export default {
             this.$store.state.page.login.isRegistLBOpen = true;
         },
         LogOut(){
-            sessionStorage['account'] = null;
-            sessionStorage['password'] = null;
-            sessionStorage['islogin'] = '0';
-            this.$router.push('/index'); 
+            localStorage['account'] = null;
+            localStorage['password'] = null;
+            localStorage['islogin'] = '0';
+
+            let _this = this;
+            if(this.$store.getters.getIsgoogle){
+                var auth2 = window.gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    _this.$store.dispatch('updateIsgoogle',false);
+                    _this.$router.push('/index');            
+                });
+            }else{
+                this.$router.push('/index');            
+            }            
         }
     },
 }

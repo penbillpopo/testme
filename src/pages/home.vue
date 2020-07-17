@@ -38,10 +38,7 @@ export default {
         return {
             islogin:true
         }        
-    },
-    mounted:function(){
-        
-    },
+    },   
     computed:{
         IsLoginLB(){
             return this.$store.getters.getLoginLBOpen;

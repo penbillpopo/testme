@@ -12,16 +12,9 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
 Vue.use(SimpleVueValidation);
-
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-}).$mount('#app')
-
-//全域function
 Vue.mixin({
   methods: {
+    //extension
     swalAlert(_title,_isSuccess){
       this.$swal.fire({
         icon: _isSuccess?'success':'error',
@@ -51,3 +44,10 @@ Vue.mixin({
     }
   }
 });
+new Vue({
+  router,
+  store,
+  render: h => h(App),
+}).$mount('#app')
+
+//全域function

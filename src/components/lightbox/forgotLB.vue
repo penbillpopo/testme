@@ -2,9 +2,9 @@
     <LBmodel>
         <template slot="headbar">
             <div class="textfield">
-                <h5 class="title">
+                <h6 class="title">
                     FORGOT
-                </h5>
+                </h6>
             </div>
             <div class="closebtn" @click="CloseForgotLB"></div>
         </template>

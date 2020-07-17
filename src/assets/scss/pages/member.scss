@@ -307,18 +307,49 @@
                         margin-bottom: 10px;
                         .inputbox{
                             width: calc(50% - 10px);
+                            .head{
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 3px;
+                            }
                             .name{
                                 margin-bottom: 2px;
                                 font-weight: 600;
                                 color: $color_grey_03;
                             }
-                            .testinput{
+                            .radioinput{
+                                display: flex;
+                                .radiolabel{
+                                    margin-left: 10px;
+                                }
+                            }
+                            .testinput,.fileinput{
                                 width: 100%;
                                 border: 1px solid $color_grey_04;
                                 color: $color_grey_03;
                                 padding: 10px;
                                 font-size: pxTorem(18);
                                 border-radius: 10px;
+                                min-height: 45px;
+                            }
+                            .fileinput{
+                                padding: 7px 10px;
+                            }
+                            .imgori{
+                                width: 100%;
+                                margin-top: 5px;
+                                .text{
+                                    color: $color_blue_01;
+                                    margin-bottom: 5px;
+                                    display: block;
+                                }
+                                .img{
+                                    width: 100%;
+                                    padding-bottom: 45%;
+                                    @extend %background_100;
+                                    border: 1px solid $color_blue_01;
+                                }
                             }
                         }
                     }
